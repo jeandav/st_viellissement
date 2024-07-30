@@ -271,4 +271,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Indice de vieillissement"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})

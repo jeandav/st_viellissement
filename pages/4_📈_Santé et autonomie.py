@@ -165,7 +165,7 @@ st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_
 '''
 
 '''
-### Nombre de bénéficiaires de l'APA, payés au titre du mois de décembre 2022 (filtre à domicile ou en établissement)
+### Nombre de bénéficiaires de l'APA, payés au titre du mois de décembre 2022
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
@@ -188,6 +188,9 @@ fig.update_layout(
         x=1
         )
     )
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Bénéficiaires de l'APA (en milliers)"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -196,6 +199,9 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_pch", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH (en milliers)"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 # '''

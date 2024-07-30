@@ -176,6 +176,9 @@ st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_
 # st.bar_chart(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="ca", y="med_rev_disp", horizontal=True)
 
 fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="med_rev_disp", y="ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -184,6 +187,9 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse (en milliers)"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -192,6 +198,9 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # st.bar_chart(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="ca", y="intens_pauv", horizontal=True)
 
 fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées (0 à 1)"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -200,5 +209,8 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 

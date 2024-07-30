@@ -176,6 +176,9 @@ st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_x60_ans_et_plus_isoles", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=300)
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés (en milliers)"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -203,4 +206,7 @@ fig.update_layout(
         x=1
         )
     )
+fig.update_layout(
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus dans un ménage"
+)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
