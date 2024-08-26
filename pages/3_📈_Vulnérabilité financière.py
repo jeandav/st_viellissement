@@ -97,6 +97,12 @@ def get_persagees_data():
 
     return df
 
+def get_popglobale_data():
+    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+
+    return df
+
 
 
 df_cluster = get_cluster_data()
@@ -106,7 +112,13 @@ df_rev_disp = get_rev_disp_data()
 # df_drees = get_drees_data()
 # gdp_df = get_gdp_data()
 # df_persagees = get_persagees_data()
+df_popglobale = get_popglobale_data()
 
+df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
+
+df_rev_disp = pd.merge(df_rev_disp, df_popglobale, left_on='ca', right_on='pop')
+df_rev_disp['med_rev_disp_pop'] = (df_rev_disp['med_rev_disp'] / df_rev_disp['pop_2024'])*100
 
 
 # -----------------------------------------------------------------------------
@@ -159,7 +171,7 @@ with st.sidebar:
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
-# st.table(df_menage)
+# st.table(df_rev_disp)
 
 
 
@@ -171,6 +183,7 @@ st.image('img/logo_minjus.svg', width=100)
 
 
 '''
+---
 ### Médiane du revenu disponible par unité de consommation (€)
 '''
 # st.bar_chart(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="ca", y="med_rev_disp", horizontal=True)
@@ -184,7 +197,9 @@ fig.add_vline(x=df_rev_disp.med_rev_disp.mean(), line_width=1, line_color="light
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
+---
 ### Bénéficiaires du minimum vieillesse
+_Rapporté par la population totale en 2022_
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
 
@@ -197,9 +212,10 @@ fig.add_vline(x=filtered_df_cluster.N_min_vie.mean(), line_width=1, line_color="
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
+---
 ### Intensité de la pauvreté au seuil de 60%
 '''
-st.write('💡 _Note JD: titre ok?_')
+st.write('💡 _Note JD: titre ok? -> Pas dans note méthodo_')
 # st.bar_chart(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="ca", y="intens_pauv", horizontal=True)
 
 fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=300)
@@ -211,6 +227,7 @@ fig.add_vline(x=df_intens_pauv.intens_pauv.mean(), line_width=1, line_color="lig
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
+---
 ### Interdécile
 '''
 st.write('💡 _Note JD: titre ok?_')

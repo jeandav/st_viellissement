@@ -98,6 +98,12 @@ def get_persagees_data():
 
     return df
 
+def get_popglobale_data():
+    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+
+    return df
+
 
 df_cluster = get_cluster_data()
 df_menage = get_menage_data()
@@ -106,6 +112,16 @@ df_menage = get_menage_data()
 # df_drees = get_drees_data()
 # df_persagees = get_persagees_data()
 # gdp_df = get_gdp_data()
+df_popglobale = get_popglobale_data()
+
+df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+df_cluster['N_x60_ans_et_plus_isoles_pop'] = (df_cluster['N_x60_ans_et_plus_isoles'] / df_cluster['pop_2024'])*100
+
+
+df_menage = pd.merge(df_menage, df_popglobale, left_on='CA', right_on='pop')
+
+df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC'] / df_menage['pop_2024'])*100
+df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC'] / df_menage['pop_2024'])*100
 
 
 # -----------------------------------------------------------------------------
@@ -113,7 +129,7 @@ df_menage = get_menage_data()
 
 
 
-
+# st.write(df_menage)
 
 liste_ca = df_cluster['ressort_ca'].unique()
 
@@ -158,7 +174,7 @@ with st.sidebar:
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
-# st.table(df_menage)
+# st.table(df_cluster)
 
 
 
@@ -171,26 +187,31 @@ st.image('img/logo_minjus.svg', width=100)
 
 
 '''
+---
 ### Population des 60 ans et plus isolées
+_Rapporté à la population du ressort de cour d'appel en 2024_
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_x60_ans_et_plus_isoles", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles_pop", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés (en milliers)"
 )
-fig.add_vline(x=filtered_df_cluster.N_x60_ans_et_plus_isoles.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=filtered_df_cluster.N_x60_ans_et_plus_isoles_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
+---
 ### Population des 60 ans et plus dans un appartement :
+_Rapporté à la population du ressort de cour d'appel en 2024_
+
 '''
 
 # st.bar_chart(df_menage[df_menage['CA'].isin(selected_ca)], x="CA", y=["X60_ANS_ET_PLUS_APPART_AV_ASC","X60_ANS_ET_PLUS_APPART_SS_ASC","X60_ANS_ET_PLUS_AUT_LOGT","X60_ANS_ET_PLUS_EMMENAGT_2","X60_ANS_ET_PLUS_EMMENAGT_30","X60_ANS_ET_PLUS_EN_MAISON","X60_ANS_ET_PLUS_ISOLES","X60_ANS_ET_PLUS_LOC_PARC_PRIVE","X60_ANS_ET_PLUS_LOC_PARC_SOCIAL","X60_ANS_ET_PLUS_LOGT_1970","X60_ANS_ET_PLUS_PROPRIETAIRES","X60_ANS_ET_PLUS_SANS_VOITURE"], horizontal=True)
 
-fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x=["X60_ANS_ET_PLUS_APPART_AV_ASC","X60_ANS_ET_PLUS_APPART_SS_ASC"], y="CA", orientation='h', height=300)
-newnames = {'X60_ANS_ET_PLUS_APPART_AV_ASC':'Appartements avec ascenceur', 'X60_ANS_ET_PLUS_APPART_SS_ASC': 'Appartements sans ascenceur'}
+fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x=["X60_ANS_ET_PLUS_APPART_AV_ASC_pop","X60_ANS_ET_PLUS_APPART_SS_ASC_pop"], y="CA", orientation='h', height=300)
+newnames = {'X60_ANS_ET_PLUS_APPART_AV_ASC_pop':'Appartements avec ascenceur', 'X60_ANS_ET_PLUS_APPART_SS_ASC_pop': 'Appartements sans ascenceur'}
 fig.for_each_trace(lambda t: t.update(name = newnames[t.name],
                                       legendgroup = newnames[t.name],
                                       hovertemplate = t.hovertemplate.replace(t.name, newnames[t.name])

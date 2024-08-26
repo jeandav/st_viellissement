@@ -97,6 +97,13 @@ def get_persagees_data():
 
     return df
 
+
+def get_popglobale_data():
+    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+
+    return df
+
 # df_persagees = get_persagees_data()
 df_cluster = get_cluster_data()
 # df_menage = get_menage_data()
@@ -104,6 +111,10 @@ df_cluster = get_cluster_data()
 # df_rev_disp = get_rev_disp_data()
 # df_drees = get_drees_data()
 # gdp_df = get_gdp_data()
+df_popglobale = get_popglobale_data()
+
+df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
 
 # -----------------------------------------------------------------------------
@@ -165,7 +176,9 @@ st.image('img/logo_minjus.svg', width=100)
 '''
 
 '''
+---
 ### Nombre de bénéficiaires de l'APA, payés au titre du mois de décembre 2022
+_Rapporté par la population totale en 2022_
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
@@ -195,7 +208,9 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
+---
 ### Nombre de bénéficiaires de la PCH de 60 ans et plus
+_Rapporté par la population totale en 2022_
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_pch", horizontal=True)
 

@@ -98,6 +98,13 @@ def get_persagees_data():
     return df
 
 
+def get_popglobale_data():
+    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+
+    return df
+
+
 
 df_cluster = get_cluster_data()
 # df_menage = get_menage_data()
@@ -106,8 +113,10 @@ df_cluster = get_cluster_data()
 # df_drees = get_drees_data()
 gdp_df = get_gdp_data()
 df_persagees = get_persagees_data()
+df_popglobale = get_popglobale_data()
 
-
+df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
 # -----------------------------------------------------------------------------
 
@@ -164,7 +173,7 @@ with st.sidebar:
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
-# st.table(df_menage)
+# st.write(df_cluster)
 
 
 st.image('img/logo_minjus.svg', width=100)
@@ -273,6 +282,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 '''
+---
 ### Indice de vieillissement
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
