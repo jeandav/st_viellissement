@@ -157,7 +157,7 @@ filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
 # st.table(df_menage)
 
-st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_la_Justice.svg', width=100)
+st.image('img/logo_minjus.svg', width=100)
 
 
 '''
@@ -191,6 +191,7 @@ fig.update_layout(
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Bénéficiaires de l'APA (en milliers)"
 )
+
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -202,6 +203,8 @@ fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', he
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH (en milliers)"
 )
+fig.add_vline(x=filtered_df_cluster.N_pch.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 # '''

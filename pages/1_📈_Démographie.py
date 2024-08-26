@@ -132,13 +132,14 @@ with st.sidebar:
     # '''
 
 
-
     cluster_options = {
         "Groupe A" : ['VERSAILLES', 'PARIS'],
         "Groupe B" : ['ANGERS', 'DIJON', 'CAEN', 'POITIERS', 'RIOM', 'BOURGES', 'LIMOGES', 'AGEN'],
         "Groupe C" : ['DOUAI', 'AMIENS', 'CHAMBERY', 'ROUEN', 'GRENOBLE', 'COLMAR', 'LYON', 'REIMS', 'METZ', 'TOULOUSE'],
         "Groupe D" : ['RENNES', 'ORLEANS', 'NANCY', 'BESANCON', 'NIMES', 'AIX EN PROVENCE', 'MONTPELLIER', 'BORDEAUX', 'PAU'],
     }
+
+
 
     chosen_cluster = st.radio(
         "Groupe :",
@@ -151,7 +152,6 @@ with st.sidebar:
         liste_ca,
         cluster_options[chosen_cluster])
 
-    # st.write(selected_ca)
     '''
     ---
     '''
@@ -167,7 +167,7 @@ filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 # st.table(df_menage)
 
 
-st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_la_Justice.svg', width=100)
+st.image('img/logo_minjus.svg', width=100)
 
 
 '''
@@ -203,9 +203,14 @@ with col2:
         "Tranche d\'age :",
         ("75 ans et plus", "60-74 ans"))
 
-'''
-### Evolution des personnes agées d'ici 2050
-'''
+# st.write(selected_genre)
+# st.write(selected_trancheage)
+
+if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en 2040')
+
 filtered_gdp_df = gdp_df[
     # (gdp_df['dep2'].isin(selected_countries))
     (gdp_df['ca'].isin(selected_ca))
@@ -222,6 +227,7 @@ filtered_df_persagees = df_persagees[
     (df_persagees['CA'].isin(selected_ca))
     & (df_persagees['SEXE'] == genre_options[selected_genre])
     & (df_persagees['TRANCHAGE'] == selected_trancheage)
+    & (df_persagees['ANNEE'] <= 2040)
 ]
 
 fig = px.line(filtered_df_persagees, x="ANNEE", y="value", color='CA', markers=True)
@@ -241,12 +247,13 @@ fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
-'''
-### Evolution des personnes dépendantes d'ici 2050
-'''
+if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en en établissement en situation de dépendance en 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en en établissement en situation de dépendance en 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en en établissement en situation de dépendance en 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en en établissement en situation de dépendance en 2040')
 
 # st.table(filtered_df_persagees)
-
+filtered_gdp_df = filtered_gdp_df[filtered_gdp_df['annee'] <= 2040]
 
 fig = px.line(filtered_gdp_df, x="annee", y="nb_proj_seniors", color='ca', markers=True)
 fig.update_layout(
@@ -274,4 +281,8 @@ fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', 
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Indice de vieillissement"
 )
+fig.add_vline(x=filtered_df_cluster.ind_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.write()
