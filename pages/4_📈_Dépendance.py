@@ -143,13 +143,15 @@ with st.sidebar:
     }
 
     chosen_cluster = st.radio(
-        "Groupe :",
+        "Choix du groupe :",
         cluster_options.keys(),
         horizontal=True
     )
-
+    '''
+    ---
+    '''
     selected_ca = st.multiselect(
-        'Cour d\'appel :',
+        'Choix de la cour d\'appel :',
         liste_ca,
         cluster_options[chosen_cluster])
 
@@ -172,39 +174,26 @@ st.image('img/logo_minjus.svg', width=100)
 
 
 '''
-# Santé et autonomie
+# Dépendance
 '''
 
 '''
 ---
-### Nombre de bénéficiaires de l'APA, payés au titre du mois de décembre 2022
+### Nombre de bénéficiaires de l'APA _à domicile_, payés au titre du mois de décembre 2022
 _Rapporté par la population totale en 2022_
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x=["N_apa_dom","N_apa_etab"], y="ressort_ca", orientation='h', height=300)
-newnames = {'N_apa_dom':'A domicile', 'N_apa_etab': 'En établissement'}
-fig.for_each_trace(lambda t: t.update(name = newnames[t.name],
-                                      legendgroup = newnames[t.name],
-                                      hovertemplate = t.hovertemplate.replace(t.name, newnames[t.name])
-                                     )
-                  )
-fig.update_layout(
-    yaxis_title='',
-    xaxis_title='Année',
-    legend_title=None,
-    legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-        )
-    )
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Bénéficiaires de l'APA (en milliers)"
-)
+fig = px.bar(filtered_df_cluster, x="N_apa_dom", y="ressort_ca", orientation='h', height=300)
+fig.add_vline(x=filtered_df_cluster.N_apa_dom.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+'''
+### Nombre de bénéficiaires de l'APA _en établissement_, payés au titre du mois de décembre 2022
+_Rapporté par la population totale en 2022_
+'''
 
+fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=300)
+fig.add_vline(x=filtered_df_cluster.N_apa_etab.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
@@ -218,7 +207,7 @@ fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', he
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH (en milliers)"
 )
-fig.add_vline(x=filtered_df_cluster.N_pch.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=filtered_df_cluster.N_pch.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 

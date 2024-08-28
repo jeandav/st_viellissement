@@ -151,13 +151,15 @@ with st.sidebar:
     }
 
     chosen_cluster = st.radio(
-        "Groupe :",
+        "Choix du groupe :",
         cluster_options.keys(),
         horizontal=True
     )
-
+    '''
+    ---
+    '''
     selected_ca = st.multiselect(
-        'Cour d\'appel :',
+        'Choix de la cour d\'appel :',
         liste_ca,
         cluster_options[chosen_cluster])
 
@@ -182,7 +184,7 @@ st.image('img/logo_minjus.svg', width=100)
 
 
 '''
-# Conditions de logement lié à l’isolement de la personne âgée
+# Conditions de logement
 '''
 
 
@@ -197,39 +199,32 @@ fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles_pop", y="ressort_c
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés (en milliers)"
 )
-fig.add_vline(x=filtered_df_cluster.N_x60_ans_et_plus_isoles_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=filtered_df_cluster.N_x60_ans_et_plus_isoles_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 '''
 ---
-### Population des 60 ans et plus dans un appartement :
+### Population des 60 ans et plus dans un appartement sans ascenceur :
 _Rapporté à la population du ressort de cour d'appel en 2024_
 
 '''
 
-# st.bar_chart(df_menage[df_menage['CA'].isin(selected_ca)], x="CA", y=["X60_ANS_ET_PLUS_APPART_AV_ASC","X60_ANS_ET_PLUS_APPART_SS_ASC","X60_ANS_ET_PLUS_AUT_LOGT","X60_ANS_ET_PLUS_EMMENAGT_2","X60_ANS_ET_PLUS_EMMENAGT_30","X60_ANS_ET_PLUS_EN_MAISON","X60_ANS_ET_PLUS_ISOLES","X60_ANS_ET_PLUS_LOC_PARC_PRIVE","X60_ANS_ET_PLUS_LOC_PARC_SOCIAL","X60_ANS_ET_PLUS_LOGT_1970","X60_ANS_ET_PLUS_PROPRIETAIRES","X60_ANS_ET_PLUS_SANS_VOITURE"], horizontal=True)
 
-fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x=["X60_ANS_ET_PLUS_APPART_AV_ASC_pop","X60_ANS_ET_PLUS_APPART_SS_ASC_pop"], y="CA", orientation='h', height=300)
-newnames = {'X60_ANS_ET_PLUS_APPART_AV_ASC_pop':'Appartements avec ascenceur', 'X60_ANS_ET_PLUS_APPART_SS_ASC_pop': 'Appartements sans ascenceur'}
-fig.for_each_trace(lambda t: t.update(name = newnames[t.name],
-                                      legendgroup = newnames[t.name],
-                                      hovertemplate = t.hovertemplate.replace(t.name, newnames[t.name])
-                                     )
-                  )
-fig.update_layout(
-    yaxis_title='',
-    xaxis_title='Année',
-    legend_title=None,
-    legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-        )
-    )
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus dans un ménage"
-)
+
+
+fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=300)
+fig.add_vline(x=df_menage.X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+
+st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+'''
+---
+### Population des 60 ans et plus dans un appartement avec ascenceur :
+_Rapporté à la population du ressort de cour d'appel en 2024_
+
+'''
+
+
+fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_AV_ASC_pop", y="CA", orientation='h', height=300)
+fig.add_vline(x=df_menage.X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})

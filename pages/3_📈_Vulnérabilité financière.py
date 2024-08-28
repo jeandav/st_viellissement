@@ -148,13 +148,15 @@ with st.sidebar:
     }
 
     chosen_cluster = st.radio(
-        "Groupe :",
+        "Choix du groupe :",
         cluster_options.keys(),
         horizontal=True
     )
-
+    '''
+    ---
+    '''
     selected_ca = st.multiselect(
-        'Cour d\'appel :',
+        'Choix de la cour d\'appel :',
         liste_ca,
         cluster_options[chosen_cluster])
 
@@ -192,7 +194,7 @@ fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="med_rev_disp",
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible"
 )
-fig.add_vline(x=df_rev_disp.med_rev_disp.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=df_rev_disp.med_rev_disp.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -207,7 +209,7 @@ fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h'
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse (en milliers)"
 )
-fig.add_vline(x=filtered_df_cluster.N_min_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=filtered_df_cluster.N_min_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -222,7 +224,7 @@ fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_p
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées (0 à 1)"
 )
-fig.add_vline(x=df_intens_pauv.intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=df_intens_pauv.intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -238,7 +240,7 @@ fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
 )
-fig.add_vline(x=filtered_df_cluster.interdecile.mean(), line_width=1, line_color="lightgrey", annotation_text="Moyenne Française", annotation_position="top")
+fig.add_vline(x=filtered_df_cluster.interdecile.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
