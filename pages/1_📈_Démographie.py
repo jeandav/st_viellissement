@@ -28,38 +28,6 @@ def get_cluster_data():
     
     return df
 
-def get_menage_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_menage.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
-
-    return df
-
-def get_intens_pauv_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_intens_pauv.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=",")
-
-    return df
-
-def get_rev_disp_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_rev_disp.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=",")
-
-    return df
-
-def get_drees_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/traitement_drees/livia_lieux_vie_sc1.csv'
-    df = pd.read_csv(DATA_FILENAME, encoding='latin-1', sep=';')
-
-    # df = df[df['genre'] == 'HOMMES']
-    # df = df[df['tranche_age'] == '75 ans et plus']
-    df = df[df['hyp_evol_dependance'] == 'intermediaire']
-    df = df[df['hyp_evol_demo'] == 'central']
-    df = df[['ca', 'tranche_age', 'genre', 'annee', 'nb_proj_seniors']]
-    df = df.groupby(['ca', 'tranche_age', 'genre', 'annee'])['nb_proj_seniors'].sum()
-    df = df.reset_index()
-    # return df
-
-
 
 
 def get_gdp_data():
@@ -107,10 +75,6 @@ def get_popglobale_data():
 
 
 df_cluster = get_cluster_data()
-# df_menage = get_menage_data()
-# df_intens_pauv = get_intens_pauv_data()
-# df_rev_disp = get_rev_disp_data()
-# df_drees = get_drees_data()
 gdp_df = get_gdp_data()
 df_persagees = get_persagees_data()
 df_popglobale = get_popglobale_data()
@@ -127,18 +91,7 @@ df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
 liste_ca = df_cluster['ressort_ca'].unique()
 
-# with st.sidebar:
-#     selected_ca = st.multiselect(
-#         "Cour d\'appel :",
-#         liste_ca,
-#         ['CAEN', 'RENNES', 'LIMOGES', 'REIMS', 'BESANCON'])
-
 with st.sidebar:
-    # st.image('https://upload.wikimedia.org/wikipedia/commons/0/06/Minist%C3%A8re_de_la_Justice.svg', width=100)
-
-    # '''
-    # # Tableau de bord du vieillissement
-    # '''
 
 
     cluster_options = {
@@ -147,8 +100,6 @@ with st.sidebar:
         "Groupe C" : ['DOUAI', 'AMIENS', 'CHAMBERY', 'ROUEN', 'GRENOBLE', 'COLMAR', 'LYON', 'REIMS', 'METZ', 'TOULOUSE'],
         "Groupe D" : ['RENNES', 'ORLEANS', 'NANCY', 'BESANCON', 'NIMES', 'AIX EN PROVENCE', 'MONTPELLIER', 'BORDEAUX', 'PAU'],
     }
-
-
 
     chosen_cluster = st.radio(
         "Choix du groupe :",
@@ -183,6 +134,7 @@ st.image('img/logo_minjus.svg', width=100)
 
 '''
 # Démographie
+---
 '''
 
 
@@ -217,11 +169,18 @@ with col2:
 # st.write(selected_genre)
 # st.write(selected_trancheage)
 
+# ===========================
+# MARK: Nombre projeté de seniors
+# ===========================
+
+
 if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en 2040')
 if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en 2040')
 if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en 2040')
 if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en 2040')
+st.write('✅')
 
+# st.write(selected_ca.append('FRANCE'))
 filtered_gdp_df = gdp_df[
     # (gdp_df['dep2'].isin(selected_countries))
     (gdp_df['ca'].isin(selected_ca))
@@ -232,15 +191,13 @@ filtered_gdp_df = gdp_df[
 ]
 
 
-# st.table(df_persagees)
-
 filtered_df_persagees = df_persagees[
     (df_persagees['CA'].isin(selected_ca))
     & (df_persagees['SEXE'] == genre_options[selected_genre])
     & (df_persagees['TRANCHAGE'] == selected_trancheage)
     & (df_persagees['ANNEE'] <= 2040)
 ]
-
+# st.write(filtered_df_persagees)
 fig = px.line(filtered_df_persagees, x="ANNEE", y="value", color='CA', markers=True)
 fig.update_layout(
     yaxis_title='',
@@ -256,6 +213,11 @@ fig.update_layout(
     )
 fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+
+# ===========================
+# MARK: Nombre projeté de seniors
+# ===========================
 
 
 if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en en établissement en situation de dépendance en 2040')
@@ -282,11 +244,15 @@ fig.update_layout(
 fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-
+# ===========================
+# MARK: Indice de vieillissement
+# ===========================
 '''
 ---
 ### Indice de vieillissement
 '''
+st.write('✅ _Pas de calcul rapport CA_')
+
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', height=300)

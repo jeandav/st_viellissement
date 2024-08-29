@@ -28,12 +28,6 @@ def get_cluster_data():
     
     return df
 
-def get_menage_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_menage.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
-
-    return df
-
 def get_intens_pauv_data():
     DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_intens_pauv.csv'
     df = pd.read_csv(DATA_FILENAME, sep=';', decimal=",")
@@ -46,56 +40,6 @@ def get_rev_disp_data():
 
     return df
 
-def get_drees_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/traitement_drees/livia_lieux_vie_sc1.csv'
-    df = pd.read_csv(DATA_FILENAME, encoding='latin-1', sep=';')
-
-    # df = df[df['genre'] == 'HOMMES']
-    # df = df[df['tranche_age'] == '75 ans et plus']
-    df = df[df['hyp_evol_dependance'] == 'intermediaire']
-    df = df[df['hyp_evol_demo'] == 'central']
-    df = df[['ca', 'tranche_age', 'genre', 'annee', 'nb_proj_seniors']]
-    df = df.groupby(['ca', 'tranche_age', 'genre', 'annee'])['nb_proj_seniors'].sum()
-    df = df.reset_index()
-    # return df
-
-
-
-
-def get_gdp_data():
-    """Grab GDP data from a CSV file.
-
-    This uses caching to avoid having to read the file every time. If we were
-    reading from an HTTP endpoint instead of a file, it's a good idea to set
-    a maximum age to the cache with the TTL argument: @st.cache_data(ttl='1d')
-    """
-
-    # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
-    DATA_FILENAME = Path(__file__).parent/'../data/traitement_drees/livia_lieux_vie_sc1.csv'
-    df = pd.read_csv(DATA_FILENAME, encoding='latin-1', sep=';')
-
-    # df = df[df['genre'] == 'HOMMES']
-    # df = df[df['tranche_age'] == '75 ans et plus']
-    df = df[df['hyp_evol_dependance'] == 'intermediaire']
-    df = df[df['hyp_evol_demo'] == 'central']
-    df = df[['ca', 'tranche_age', 'genre', 'annee', 'nb_proj_seniors']]
-    df = df.groupby(['ca', 'tranche_age', 'genre', 'annee'])['nb_proj_seniors'].sum()
-    df = df.reset_index()
-
-
-    return df
-
-
-def get_persagees_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/PERSAGEES/PERSAGEES_TRAITE.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=',', encoding='latin-1')
-
-    df = df[['CA','SEXE','TRANCHAGE','ANNEE','value']]
-    df = df.groupby(['CA','SEXE','TRANCHAGE','ANNEE']).sum().reset_index()
-
-    df['ANEE'] = pd.to_numeric(df['ANNEE'])
-
-    return df
 
 def get_popglobale_data():
     DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
@@ -106,12 +50,8 @@ def get_popglobale_data():
 
 
 df_cluster = get_cluster_data()
-# df_menage = get_menage_data()
 df_intens_pauv = get_intens_pauv_data()
 df_rev_disp = get_rev_disp_data()
-# df_drees = get_drees_data()
-# gdp_df = get_gdp_data()
-# df_persagees = get_persagees_data()
 df_popglobale = get_popglobale_data()
 
 df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
@@ -130,11 +70,6 @@ df_rev_disp['med_rev_disp_pop'] = (df_rev_disp['med_rev_disp'] / df_rev_disp['po
 
 liste_ca = df_cluster['ressort_ca'].unique()
 
-# with st.sidebar:
-#     selected_ca = st.multiselect(
-#         "Cour d\'appel :",
-#         liste_ca,
-#         ['CAEN', 'RENNES', 'LIMOGES', 'REIMS', 'BESANCON'])
 
 with st.sidebar:
 
@@ -183,56 +118,97 @@ st.image('img/logo_minjus.svg', width=100)
 # Vulnérabilité financière
 '''
 
+# ===========================
+# MARK: Médiane du revenu disponible par unité de consommation
+# ===========================
+
 
 '''
 ---
-### Médiane du revenu disponible par unité de consommation (€)
+### Médiane du revenu disponible par unité de consommation
 '''
-# st.bar_chart(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="ca", y="med_rev_disp", horizontal=True)
+st.write('✅')
 
-fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="med_rev_disp", y="ca", orientation='h', height=300)
+pop_options = {
+    "Population globale" : "med_rev_disp",
+    "60-74 ans" : "n_vie_60_74",
+    "Plus de 75 ans" : "n_vie_75",
+}
+selected_pop = st.selectbox(
+        "Population :",
+        pop_options.keys())
+
+# st.bar_chart(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x="ca", y="med_rev_disp", horizontal=True)
+# st.write(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)].med_rev_disp.mean())
+
+# st.write(df_rev_disp)
+# st.write(pop_options[selected_pop])
+
+fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[selected_pop], y="ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible"
+    yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
 )
-fig.add_vline(x=df_rev_disp.med_rev_disp.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+
+
+
+
+# ===========================
+# MARK: Bénéficiaires du minimum vieillesse
+# ===========================
 
 '''
 ---
 ### Bénéficiaires du minimum vieillesse
 _Rapporté par la population totale en 2022_
 '''
+st.write('✅')
+# st.write(filtered_df_cluster)
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse (en milliers)"
 )
-fig.add_vline(x=filtered_df_cluster.N_min_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+
+# ===========================
+# MARK: Intensité de la pauvreté au seuil de 60%
+# ===========================
+
 
 '''
 ---
 ### Intensité de la pauvreté au seuil de 60%
 '''
-st.write('💡 _Note JD: titre ok? -> Pas dans note méthodo_')
 # st.bar_chart(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="ca", y="intens_pauv", horizontal=True)
 
 fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées (0 à 1)"
 )
-fig.add_vline(x=df_intens_pauv.intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+
+
+# ===========================
+# MARK: Interdécile
+# ===========================
+
+
 '''
 ---
-### Interdécile
+### Interdécile*
+_Relation le 1er et le 9e déciles de la distribution de l'indice de pauvreté_
 '''
-st.write('💡 _Note JD: titre ok?_')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
 
@@ -240,7 +216,7 @@ fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
 )
-fig.add_vline(x=filtered_df_cluster.interdecile.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
