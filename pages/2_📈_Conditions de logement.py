@@ -95,7 +95,7 @@ with st.sidebar:
     '''
 
     '''
-    Ministère de la Justice  \nPôle de l'Evaluation et de la Prospective
+    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
     '''
 
 
@@ -125,7 +125,7 @@ st.image('img/logo_minjus.svg', width=100)
 _Rapporté par la population totale en 2016_
 '''
 
-st.write('✅')
+# st.write('✅')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_x60_ans_et_plus_isoles", horizontal=True)
 
@@ -145,10 +145,10 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _sans ascenceur_ :
-_Rapporté à la population du ressort de cour d'appel en 2016_
+_Rapporté à la population totale en 2016_
 '''
 
-st.write('✅')
+# st.write('✅')
 
 
 
@@ -169,10 +169,10 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _avec ascenceur_ :
-_Rapporté à la population du ressort de cour d'appel en 2016_
+_Rapporté à la population totale en 2016_
 '''
 
-st.write('✅')
+# st.write('✅')
 
 
 

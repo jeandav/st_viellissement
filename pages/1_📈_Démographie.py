@@ -119,7 +119,7 @@ with st.sidebar:
     '''
 
     '''
-    Ministère de la Justice  \nPôle de l'Evaluation et de la Prospective
+    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
     '''
 
 
@@ -178,7 +178,7 @@ if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.wr
 if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en 2040')
 if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en 2040')
 if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en 2040')
-st.write('✅')
+# st.write('✅')
 
 # st.write(selected_ca.append('FRANCE'))
 filtered_gdp_df = gdp_df[
@@ -251,7 +251,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 ---
 ### Indice de vieillissement
 '''
-st.write('✅ _Pas de calcul rapport CA_')
+# st.write('✅ _Pas de calcul rapport CA_')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
 

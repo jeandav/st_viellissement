@@ -81,7 +81,7 @@ with st.sidebar:
     '''
 
     '''
-    Ministère de la Justice  \nPôle de l'Evaluation et de la Prospective
+    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
     '''
 
 
@@ -106,7 +106,7 @@ Payés au titre du mois de décembre 2022, rapporté par la population totale en
 
 _*Allocation personnalisée d'autonomie_
 '''
-st.write('✅')
+# st.write('✅')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
@@ -129,7 +129,7 @@ Payés au titre du mois de décembre 2022, rapporté par la population totale en
 _*Allocation personnalisée d'autonomie_
 
 '''
-st.write('✅')
+# st.write('✅')
 
 fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
@@ -151,7 +151,7 @@ _*Prestation de compensation du handicap_
 
 _Rapporté par la population totale en 2022_
 '''
-st.write('✅')
+# st.write('✅')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_pch", horizontal=True)
 

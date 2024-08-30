@@ -101,7 +101,7 @@ with st.sidebar:
     '''
 
     '''
-    Ministère de la Justice  \nPôle de l'Evaluation et de la Prospective
+    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
     '''
 
 
@@ -127,7 +127,7 @@ st.image('img/logo_minjus.svg', width=100)
 ---
 ### Médiane du revenu disponible par unité de consommation
 '''
-st.write('✅')
+# st.write('✅')
 
 pop_options = {
     "Population globale" : "med_rev_disp",
@@ -165,7 +165,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 ### Bénéficiaires du minimum vieillesse
 _Rapporté par la population totale en 2022_
 '''
-st.write('✅')
+# st.write('✅')
 # st.write(filtered_df_cluster)
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
 
@@ -191,7 +191,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées (0 à 1)"
+    yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées"
 )
 fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
@@ -207,7 +207,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 '''
 ---
 ### Interdécile*
-_Relation le 1er et le 9e déciles de la distribution de l'indice de pauvreté_
+_*Relation le 1er et le 9e déciles de la distribution de l'indice de pauvreté_
 '''
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
