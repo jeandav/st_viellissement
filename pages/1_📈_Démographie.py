@@ -211,7 +211,7 @@ fig.update_layout(
         x=1
         )
     )
-fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
+# fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
@@ -241,7 +241,7 @@ fig.update_layout(
         x=1
         )
     )
-fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
+# fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 # ===========================
@@ -259,7 +259,7 @@ fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', 
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Indice de vieillissement"
 )
-fig.add_vline(x=filtered_df_cluster.ind_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].ind_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
