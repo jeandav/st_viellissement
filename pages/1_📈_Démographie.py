@@ -118,9 +118,13 @@ with st.sidebar:
     ---
     '''
 
-    '''
-    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
-    '''
+
+    st.write("""
+    <b>Réalisation</b><br>
+    Ministère de la Justice<br>
+    Direction des services judiciaires <br>
+    Pôle de l'Evaluation et de la Prospective
+    """, unsafe_allow_html=True)
 
 
 
@@ -136,9 +140,6 @@ st.image('img/logo_minjus.svg', width=100)
 # Démographie
 ---
 '''
-
-
-
 
 min_value = gdp_df['annee'].min()
 max_value = gdp_df['annee'].max()
@@ -211,6 +212,7 @@ fig.update_layout(
         x=1
         )
     )
+
 # fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -244,6 +246,10 @@ fig.update_layout(
 # fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+
+st.markdown(':grey[Source : _Modèle LIVIA (DREES)_]')
+
+
 # ===========================
 # MARK: Indice de vieillissement
 # ===========================
@@ -251,16 +257,17 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 ---
 ### Indice de vieillissement
 '''
-# st.write('✅ _Pas de calcul rapport CA_')
-
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Indice de vieillissement"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].ind_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+# fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].ind_vie.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=86, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write()
+
+st.write('<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé plus il est favorable aux personnes âgées.', unsafe_allow_html=True)
+st.markdown(':grey[Source : _Insee, Recensement de la population (RP), exploitation principale_]')

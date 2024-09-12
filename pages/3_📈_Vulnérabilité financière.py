@@ -100,9 +100,12 @@ with st.sidebar:
     ---
     '''
 
-    '''
-    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
-    '''
+    st.write("""
+    <b>Réalisation</b><br>
+    Ministère de la Justice<br>
+    Direction des services judiciaires <br>
+    Pôle de l'Evaluation et de la Prospective
+    """, unsafe_allow_html=True)
 
 
 
@@ -148,11 +151,13 @@ fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[sel
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
 )
-fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+st.write('<b><u>Note de lecture :</b></u> Le revenu disponible par unité de consommation, également appelé "<b>niveau de vie</b>", est calculé en rapportant le revenu disponible du ménage au nombre d’unités de consommation qui le composent. Les unités de consommation sont un système de pondération permettant de comparer les niveaux de vie de ménages de tailles ou de compositions différentes.', unsafe_allow_html=True)
 
+st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi)_]')
 
 
 
@@ -165,6 +170,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 ### Bénéficiaires du minimum vieillesse
 _Rapporté par la population totale en 2022_
 '''
+
 # st.write('✅')
 # st.write(filtered_df_cluster)
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
@@ -173,9 +179,17 @@ fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h'
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse (en milliers)"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+
+st.markdown(':grey[Source : _Drees ; Insee, Estimations de population_]')
+
+
+
+
+
 
 
 # ===========================
@@ -193,16 +207,17 @@ fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_p
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées"
 )
-fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté permet d’apprécier à quel point le niveau de vie de la population pauvre est éloigné du seuil de pauvreté. Plus cet indicateur est élevé et plus la pauvreté est dite intense, au sens où le niveau de vie des plus pauvres est très inférieur au seuil de pauvreté.', unsafe_allow_html=True)
 
 
 
 # ===========================
 # MARK: Interdécile
 # ===========================
-
 
 '''
 ---
@@ -216,7 +231,10 @@ fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+
+st.write('<b><u>Note de lecture :</b></u> L’interdécile est un indicateur des inégalités. Il compare les revenus du décile le plus faible (1er décile) avec ceux du décile le plus élevé (9e décile). Plus cet écart est grand, plus les inégalités sont importantes.', unsafe_allow_html=True)
 

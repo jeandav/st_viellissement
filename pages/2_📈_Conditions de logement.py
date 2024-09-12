@@ -94,9 +94,12 @@ with st.sidebar:
     ---
     '''
 
-    '''
-    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
-    '''
+    st.write("""
+    <b>Réalisation</b><br>
+    Ministère de la Justice<br>
+    Direction des services judiciaires <br>
+    Pôle de l'Evaluation et de la Prospective
+    """, unsafe_allow_html=True)
 
 
 
@@ -125,17 +128,17 @@ st.image('img/logo_minjus.svg', width=100)
 _Rapporté par la population totale en 2016_
 '''
 
-# st.write('✅')
-
-# st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_x60_ans_et_plus_isoles", horizontal=True)
 
 fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés (en milliers)"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.markdown(':grey[Source : _Insee ; traitement caisse des dépôts_]')
+
 
 # ===========================
 # MARK: Population des 60 ans et plus dans un appartement sans ascenceur
@@ -156,9 +159,11 @@ fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_AP
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenceur"
 )
-fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.markdown(':grey[Source : _Insee_]')
 
 
 # ===========================
@@ -180,5 +185,7 @@ fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_AP
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenceur"
 )
-fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.markdown(':grey[Source : _Insee_]')

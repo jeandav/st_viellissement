@@ -80,9 +80,12 @@ with st.sidebar:
     ---
     '''
 
-    '''
-    Ministère de la Justice  \nDirection des services judiciaires   \nPôle de l'Evaluation et de la Prospective
-    '''
+    st.write("""
+    <b>Réalisation</b><br>
+    Ministère de la Justice<br>
+    Direction des services judiciaires <br>
+    Pôle de l'Evaluation et de la Prospective
+    """, unsafe_allow_html=True)
 
 
 
@@ -95,18 +98,18 @@ st.image('img/logo_minjus.svg', width=100)
 
 '''
 # Perte d'autonomie
+---
 '''
 # ===========================
 # MARK: Nombre de bénéficiaires de l'APA à domicile
 # ===========================
-'''
----
-### Nombre de bénéficiaires de l'APA* _à domicile_
-Payés au titre du mois de décembre 2022, rapporté par la population totale en 2022
 
-_*Allocation personnalisée d'autonomie_
-'''
-# st.write('✅')
+st.write("""
+<h3>Nombre de bénéficiaires de l'APA* <em>à domicile</em></h3>
+Payés au titre du mois de décembre 2022, rapporté par la population totale en 2022
+<br>
+<em>*Allocation personnalisée d'autonomie</em>
+""", unsafe_allow_html=True)
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
@@ -114,43 +117,43 @@ fig = px.bar(filtered_df_cluster, x="N_apa_dom", y="ressort_ca", orientation='h'
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA à domicile"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
-
-
 
 # ===========================
 # MARK: Nombre de bénéficiaires de l'APA en établissement
 # ===========================
-'''
-### Nombre de bénéficiaires de l'APA* _en établissement_
+
+st.write("""
+<h3>Nombre de bénéficiaires de l'APA* <em>en établissement</em></h3>
 Payés au titre du mois de décembre 2022, rapporté par la population totale en 2022
-
-_*Allocation personnalisée d'autonomie_
-
-'''
+<br>
+<em>*Allocation personnalisée d'autonomie</em>
+""", unsafe_allow_html=True)
 # st.write('✅')
 
 fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA en établissement"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
+st.markdown(':grey[Source : _Drees_]')
 
 
 # ===========================
 # MARK: Nombre de bénéficiaires de la PCH de 60 ans et plus
 # ===========================
-'''
----
-### Nombre de bénéficiaires de la PCH* de 60 ans et plus
-_*Prestation de compensation du handicap_
 
-_Rapporté par la population totale en 2022_
-'''
+st.write("""
+<hr>
+<h3>Nombre de bénéficiaires de la PCH* de 60 ans et plus</h3>
+Rapporté par la population totale en 2022<br>
+<em>*Prestation de compensation du handicap</em>
+""", unsafe_allow_html=True)
+
 # st.write('✅')
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_pch", horizontal=True)
@@ -159,6 +162,8 @@ fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', he
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH (en milliers)"
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean(), line_width=1, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+st.markdown(':grey[Source : _Drees_]')
