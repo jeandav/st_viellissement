@@ -13,7 +13,7 @@ st.sidebar.success("Sélectionner une thématique ci-dessus.")
 
 st.markdown(
     """
-    Le tableau de bord du vieillissement compile des données publiques à l'échelle des ressorts de cour d'appel sur le territoire Français.
+    Le tableau de bord du vieillissement compile des données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
 
     **👈 Sélectionnez un thème dans le volet ci-contre** pour les visualiser.
 """
