@@ -246,6 +246,7 @@ fig.update_layout(
 # fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+st.write('<b><u>Note de lecture :</b></u> Ces données sont issues du modèle statistique LIVIA (DREES) dont le but est d’offrir une vision prédictive de la population Française dans le futur. Ces prédictions ne prennent pas en compte les événements imprévus, tels que les crises sanitaires ou les changements politiques majeurs, qui pourraient modifier considérablement les tendances observées. (NOTE JD: pas certain de celui-ci. Une note de lecture est-elle vraiment nécessaire pour les graphiques qui représentent des données en nombre absolus d’habitants?)', unsafe_allow_html=True)
 
 st.markdown(':grey[Source : _Modèle LIVIA (DREES)_]')
 
