@@ -175,10 +175,10 @@ with col2:
 # ===========================
 
 
-if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en 2040')
-if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en 2040')
-if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en 2040')
-if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de femmes de 75 ans ou plus d’ici 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans d’ici 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté d’hommes de 75 ans ou plus d’ici 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans d’ici 2040')
 # st.write('✅')
 
 # st.write(selected_ca.append('FRANCE'))
@@ -222,10 +222,10 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 # ===========================
 
 
-if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors de femmes de 75 ans ou plus en en établissement en situation de dépendance en 2040')
-if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en en établissement en situation de dépendance en 2040')
-if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de seniors d’hommes de 75 ans ou plus en en établissement en situation de dépendance en 2040')
-if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en en établissement en situation de dépendance en 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté de femmes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040')
+if selected_genre == 'Femmes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté de femmes de 60-74 ans en établissement en situation de dépendance d’ici 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '75 ans et plus': st.write('### Nombre projeté d’hommes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040')
+if selected_genre == 'Hommes' and selected_trancheage == '60-74 ans': st.write('### Nombre projeté d’hommes de 60-74 ans en établissement en situation de dépendance d’ici 2040')
 
 # st.table(filtered_df_persagees)
 filtered_gdp_df = filtered_gdp_df[filtered_gdp_df['annee'] <= 2040]
@@ -246,9 +246,60 @@ fig.update_layout(
 # fig.add_vline(x=2024, line_width=1, line_color="lightgrey")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> Ces données sont issues du modèle statistique LIVIA (DREES) dont le but est d’offrir une vision prédictive de la population Française dans le futur. Ces prédictions ne prennent pas en compte les événements imprévus, tels que les crises sanitaires ou les changements politiques majeurs, qui pourraient modifier considérablement les tendances observées. (NOTE JD: pas certain de celui-ci. Une note de lecture est-elle vraiment nécessaire pour les graphiques qui représentent des données en nombre absolus d’habitants?)', unsafe_allow_html=True)
+# st.write('<b><u>Note de lecture :</b></u> Ces données sont issues du modèle statistique LIVIA (DREES) dont le but est d’offrir une vision prédictive de la population Française dans le futur. Ces prédictions ne prennent pas en compte les événements imprévus, tels que les crises sanitaires ou les changements politiques majeurs, qui pourraient modifier considérablement les tendances observées. (NOTE JD: pas certain de celui-ci. Une note de lecture est-elle vraiment nécessaire pour les graphiques qui représentent des données en nombre absolus d’habitants?)', unsafe_allow_html=True)
 
-st.markdown(':grey[Source : _Modèle LIVIA (DREES)_]')
+# st.write(selected_ca[0])
+
+data_2040 = filtered_df_persagees[(filtered_df_persagees['CA'] == selected_ca[0]) & (filtered_df_persagees['ANNEE'] == 2040)]
+# st.write(data_2040)
+data_2024 = filtered_df_persagees[(filtered_df_persagees['CA'] == selected_ca[0]) & (filtered_df_persagees['ANNEE'] == 2024)]
+# st.write(data_2024)
+
+def pourcentage_evolution(valeur_initiale, valeur_finale):
+  evolution = valeur_finale / valeur_initiale - 1
+  pourcentage = evolution * 100
+  return pourcentage
+
+evolution = round(pourcentage_evolution(data_2024['value'].iloc[0], data_2040['value'].iloc[0]))
+# if evolution > 0:
+#     st.write(f"soit une augmentation de {evolution}%")
+# else:
+#     st.write(f"soit une diminution de {-evolution}%")
+data_2024_dep = filtered_gdp_df[(filtered_gdp_df['ca'] == selected_ca[0]) & (filtered_gdp_df['annee'] == 2024)]
+# st.write(data_2024_dep)
+data_2040_dep = filtered_gdp_df[(filtered_gdp_df['ca'] == selected_ca[0]) & (filtered_gdp_df['annee'] == 2040)]
+# st.write(data_2040_dep)
+
+
+
+
+
+st.write('<b><u>Note de lecture :</b></u> En 2040, la DRESS estime un nombre de près de ',
+int(data_2040['value'].iloc[0]),
+' ',
+data_2040['SEXE'].iloc[0].lower(),
+' de ',
+data_2040['TRANCHAGE'].iloc[0].lower(),
+' à la cour d’appel de ',
+data_2040['CA'].iloc[0].title(),
+', contre ',
+int(data_2024['value'].iloc[0]),
+' en 2024, soit une évolution de +',
+round(pourcentage_evolution(data_2024['value'].iloc[0], data_2040['value'].iloc[0])),
+'%. S’agissant des ',
+data_2024_dep['genre'].iloc[0].lower(),
+'de ',
+data_2040['TRANCHAGE'].iloc[0].lower(),
+' en établissement en situation de dépendance, on passe de ',
+data_2024_dep['nb_proj_seniors'].iloc[0],
+' en 2024 à ',
+data_2040_dep['nb_proj_seniors'].iloc[0],
+' en 2040, soit (+',
+round(pourcentage_evolution(data_2024_dep['nb_proj_seniors'].iloc[0], data_2040_dep['nb_proj_seniors'].iloc[0])),
+'%).',
+unsafe_allow_html=True)
+
+st.markdown(':grey[Source : _Modèle LIVIA (DREES); exploitation PEP/DSJ_]')
 
 
 # ===========================
@@ -269,6 +320,9 @@ fig.add_vline(x=86, line_width=1.5, line_color="lightgrey", annotation_text="Fra
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+data_iv = filtered_df_cluster[filtered_df_cluster['ressort_ca'] == selected_ca[0]]
+# st.write(data_iv)
 
-st.write('<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé plus il est favorable aux personnes âgées.', unsafe_allow_html=True)
-st.markdown(':grey[Source : _Insee, Recensement de la population (RP), exploitation principale_]')
+
+st.write('<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé plus il est favorable aux personnes âgées. Par exemple, à la cour d’appel de',data_2040['CA'].iloc[0].title(),', on dénombre ',data_iv['ind_vie'].iloc[0],' seniors de plus de 65 ans pour 100 jeunes de moins de 20 ans. Au niveau national, ce chiffre s’élève à 86.', unsafe_allow_html=True)
+st.markdown(':grey[Source : _Insee, Recensement de la population (RP), exploitation principale; exploitation PEP/DSJ_]')

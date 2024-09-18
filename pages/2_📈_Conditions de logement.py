@@ -137,17 +137,17 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.markdown(':grey[Source : _Insee ; traitement caisse des dépôts_]')
+st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 
 
 # ===========================
-# MARK: Population des 60 ans et plus dans un appartement sans ascenceur
+# MARK: Population des 60 ans et plus dans un appartement sans ascenseur
 # ===========================
 
 
 '''
 ---
-### Population des 60 ans et plus dans un appartement _sans ascenceur_ :
+### Population des 60 ans et plus dans un appartement _sans ascenseur_ :
 _Rapporté à la population totale en 2016_
 '''
 
@@ -157,23 +157,23 @@ _Rapporté à la population totale en 2016_
 
 fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenceur"
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur"
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.markdown(':grey[Source : _Insee_]')
+st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
 
 # ===========================
-# MARK: Population des 60 ans et plus dans un appartement avec ascenceur
+# MARK: Population des 60 ans et plus dans un appartement avec ascenseur
 # ===========================
 
 
 '''
 ---
-### Population des 60 ans et plus dans un appartement _avec ascenceur_ :
+### Population des 60 ans et plus dans un appartement _avec ascenseur_ :
 _Rapporté à la population totale en 2016_
 '''
 
@@ -183,9 +183,9 @@ _Rapporté à la population totale en 2016_
 
 fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_AV_ASC_pop", y="CA", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenceur"
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur"
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.markdown(':grey[Source : _Insee_]')
+st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')

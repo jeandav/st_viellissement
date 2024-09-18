@@ -157,7 +157,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.write('<b><u>Note de lecture :</b></u> Le revenu disponible par unité de consommation, également appelé "<b>niveau de vie</b>", est calculé en rapportant le revenu disponible du ménage au nombre d’unités de consommation qui le composent. Les <b>unités de consommation</b> sont un système de pondération permettant de comparer les niveaux de vie des ménages de tailles ou de compositions différente.', unsafe_allow_html=True)
 
-st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi)_]')
+st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi); exploitation PEP/DSJ_]')
 
 
 
@@ -184,7 +184,7 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.me
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
-st.markdown(':grey[Source : _Drees ; Insee, Estimations de population_]')
+st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]')
 
 
 
