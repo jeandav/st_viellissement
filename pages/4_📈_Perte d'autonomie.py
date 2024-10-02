@@ -120,6 +120,8 @@ fig.update_layout(
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', round(filtered_df_cluster['N_apa_dom'].iloc[0]),' est bénéficiaire de l’APA <i>à domicile</i>. Sur l’ensemble de la population Française, ce ratio est d’une personne sur',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()),'.',unsafe_allow_html=True)
+
 # ===========================
 # MARK: Nombre de bénéficiaires de l'APA en établissement
 # ===========================
@@ -140,6 +142,8 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.m
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
+
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', round(filtered_df_cluster['N_apa_etab'].iloc[0]),' est bénéficiaire de l’APA <i>en établissement</i>. Sur l’ensemble de la population Française, ce ratio est d’une personne sur',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean()),'.',unsafe_allow_html=True)
 st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')
 
 
@@ -166,4 +170,8 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
+
+
+
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', round(filtered_df_cluster['N_pch'].iloc[0]),' de 60 ans ou plus est bénéficiaire de la PCH. Sur l’ensemble de la population Française, ce ratio est d’une personne sur',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()),'.',unsafe_allow_html=True)
 st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')

@@ -155,9 +155,22 @@ fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[select
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> Le revenu disponible par unité de consommation, également appelé "<b>niveau de vie</b>", est calculé en rapportant le revenu disponible du ménage au nombre d’unités de consommation qui le composent. Les <b>unités de consommation</b> sont un système de pondération permettant de comparer les niveaux de vie des ménages de tailles ou de compositions différente.', unsafe_allow_html=True)
+data_med_disp = df_rev_disp[df_rev_disp['ca'] == selected_ca[0]]
 
-st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi); exploitation PEP/DSJ_]')
+st.write('<b><u>Note de lecture :</b></u> Le revenu disponible par unité de consommation, également appelé "<b>niveau de vie</b>", est calculé en rapportant le revenu disponible du ménage au nombre d’unités de consommation qui le composent. Les <b>unités de consommation</b> sont un système de pondération permettant de comparer les niveaux de vie des ménages de tailles ou de compositions différente. Par exemple, dans la cour d’appel de ', data_med_disp['ca'].iloc[0].title(),', le revenu disponible par unité de consommation est de ',round(data_med_disp[pop_options[selected_pop]].iloc[0]),'€, contre ',round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean()),'€ dans la population Française.', unsafe_allow_html=True)
+
+# st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi); exploitation PEP/DSJ_]')
+
+# st.write(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean()))
+# st.write(data_med_disp['ca'].iloc[0].title())
+# st.write(data_med_disp)
+
+# st.write('Par exemple, pour la population \"',pop_options[selected_pop],'la médiane du niveau de vie moyen est de ',)
+# st.write(data_iv)
+
+
+
+
 
 
 
@@ -177,18 +190,18 @@ _Rapporté par la population totale en 2022_
 
 fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse (en milliers)"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
+
+
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', round(filtered_df_cluster['N_min_vie'].iloc[0]),' bénéficie du minimum vieillesse. Sur l’ensemble de la population Française, ce ratio est d’une personne sur',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()),'.', unsafe_allow_html=True)
+
 st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]')
-
-
-
-
 
 
 
@@ -211,8 +224,7 @@ fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté permet d’apprécier à quel point le niveau de vie de la population pauvre est éloigné du seuil de pauvreté. Plus cet indicateur est élevé et plus la pauvreté est dite intense, au sens où le niveau de vie des plus pauvres est très inférieur au seuil de pauvreté.', unsafe_allow_html=True)
-
+st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté permet d’apprécier à quel point le niveau de vie de la population pauvre est éloigné du seuil de pauvreté. Plus cet indicateur est élevé et plus la pauvreté est dite intense, au sens où le niveau de vie des plus pauvres est très inférieur au seuil de pauvreté. Au sein de la cour d appel de ',df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].ca.title(),', ce seuil est de ', round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].intens_pauv, 3),', contre',round(df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), 3),'dans l ensemble de la population Française.',unsafe_allow_html=True)
 
 
 # ===========================

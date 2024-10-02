@@ -131,13 +131,17 @@ _Rapporté par la population totale en 2016_
 
 fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés (en milliers)"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
+
+
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])*1,' est considérée comme une personne de plus de 60 ans isolées. Sur l ensemble de la population Française, ce ratio est de 1 sur ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()), unsafe_allow_html=True)
+
 
 
 # ===========================
@@ -153,9 +157,9 @@ _Rapporté à la population totale en 2016_
 
 # st.write('✅')
 
+df_menage_filtered = df_menage[df_menage['CA'].isin(selected_ca)]
 
-
-fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=300)
+fig = px.bar(df_menage_filtered, x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=300)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur"
 )
@@ -165,6 +169,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', Une personne sur ', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),' est considérée comme une personne âgées dans un appartement <i>sans ascenceur</i>. Sur l ensemble de la population Française, ce ratio est de un sur ',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()), unsafe_allow_html=True)
 
 # ===========================
 # MARK: Population des 60 ans et plus dans un appartement avec ascenseur
@@ -189,3 +194,5 @@ fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
+
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', Une personne sur ', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),' est considérée comme une personne âgées dans un appartement <i>avec ascenceur</i>. Sur l ensemble de la population Française, ce ratio est de un sur ',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()), unsafe_allow_html=True)
