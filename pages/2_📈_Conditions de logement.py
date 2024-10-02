@@ -125,7 +125,7 @@ st.image('img/logo_minjus.svg', width=100)
 '''
 ---
 ### Population des 60 ans et plus isolés
-_Rapporté par la population totale en 2016_
+_Pour 100 000 habitants._
 '''
 
 
@@ -140,7 +140,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', une personne sur ', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])*1,' est considérée comme une personne de plus de 60 ans isolée. Sur l ensemble de la population Française, ce ratio est d’une personne sur ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()), unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])*1,'personnes sur 100.000 sont considérées comme des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
 
 
 
@@ -152,7 +152,7 @@ st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_c
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _sans ascenseur_ :
-_Rapporté à la population totale en 2016_
+_Pour 100 000 habitants._
 '''
 
 # st.write('✅')
@@ -169,7 +169,8 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', Une personne sur ', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),' est considérée comme une personne âgées dans un appartement <i>sans ascenceur</i>. Sur l ensemble de la population Française, ce ratio est d’une personne sur ',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()), unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),'personnes sur 100.000 sont considérées comme des personnes âgées vivant dans un appartement <i>sans ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
+
 
 # ===========================
 # MARK: Population des 60 ans et plus dans un appartement avec ascenseur
@@ -179,7 +180,7 @@ st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_fil
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _avec ascenseur_ :
-_Rapporté à la population totale en 2016_
+_Pour 100 000 habitants._
 '''
 
 # st.write('✅')
@@ -195,4 +196,4 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', Une personne sur ', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),' est considérée comme une personne âgées dans un appartement <i>avec ascenceur</i>. Sur l ensemble de la population Française, ce ratio est d’une personne sur ',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()), unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),'personnes sur 100.000 sont considérées comme des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
