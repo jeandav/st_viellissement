@@ -6,8 +6,16 @@ from pathlib import Path
 import plotly.express as px
 import numpy as np
 
-# -----------------------------------------------------------------------------
+from pages.jd_functions.jd_func import select_graph_height
+from pages.jd_functions.jd_func import liste_cluster_options
+from pages.jd_functions.jd_func import sidebar_signature
 
+from pages.jd_functions.jd_func_import import get_cluster_data
+from pages.jd_functions.jd_func_import import get_menage_data
+from pages.jd_functions.jd_func_import import get_popglobale_data
+
+
+# -----------------------------------------------------------------------------
 
 st.set_page_config(
     page_title='Evolution du vieillissement',
@@ -17,29 +25,7 @@ st.set_page_config(
 
 # -----------------------------------------------------------------------------
 
-@st.cache_data
-def get_cluster_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/df_cluster_complete.csv'
-    df = pd.read_csv(DATA_FILENAME, encoding='latin-1', sep=';', decimal=".")
-
-
-    decimals = 2    
-    df['interdecile'] = df['interdecile'].apply(lambda x: round(x, decimals))
-    
-    return df
-
-def get_menage_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/caisse_dep/caisse_dep_menage.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
-
-    return df
-
-def get_popglobale_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
-
-    return df
-
+# @st.cache_data
 
 df_cluster = get_cluster_data()
 df_menage = get_menage_data()
@@ -57,61 +43,23 @@ df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APP
 
 # -----------------------------------------------------------------------------
 
-
-
-
-# st.write(df_menage)
-
 liste_ca = df_cluster['ressort_ca'].unique()
 
 
+liste_ca = df_cluster['ressort_ca'].unique()
+
 with st.sidebar:
+    cluster_options = liste_cluster_options()
+    chosen_cluster = st.radio("Choix du groupe :", cluster_options.keys(),horizontal=True)
+    '''---'''
+    selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
+    '''---'''
+    st.write(sidebar_signature(), unsafe_allow_html=True)
 
-
-
-    cluster_options = {
-        "Groupe A" : ['VERSAILLES', 'PARIS'],
-        "Groupe B" : ['ANGERS', 'DIJON', 'CAEN', 'POITIERS', 'RIOM', 'BOURGES', 'LIMOGES', 'AGEN'],
-        "Groupe C" : ['DOUAI', 'AMIENS', 'CHAMBERY', 'ROUEN', 'GRENOBLE', 'COLMAR', 'LYON', 'REIMS', 'METZ', 'TOULOUSE'],
-        "Groupe D" : ['RENNES', 'ORLEANS', 'NANCY', 'BESANCON', 'NIMES', 'AIX EN PROVENCE', 'MONTPELLIER', 'BORDEAUX', 'PAU'],
-    }
-
-    chosen_cluster = st.radio(
-        "Choix du groupe :",
-        cluster_options.keys(),
-        horizontal=True
-    )
-    '''
-    ---
-    '''
-    selected_ca = st.multiselect(
-        'Choix de la cour d\'appel :',
-        liste_ca,
-        cluster_options[chosen_cluster])
-
-    # st.write(selected_ca)
-    '''
-    ---
-    '''
-
-    st.write("""
-    <b>Réalisation</b><br>
-    Ministère de la Justice<br>
-    Direction des services judiciaires <br>
-    Pôle de l'Evaluation et de la Prospective
-    """, unsafe_allow_html=True)
-
-jd_graph_height = 300
-if len(selected_ca) > 3:
-    jd_graph_height = 500
-else:
-    jd_graph_height = 300
-
+jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
-# st.table(df_cluster)
-
-
+# -----------------------------------------------------------------------------
 
 st.image('img/logo_minjus.svg', width=100)
 
@@ -119,8 +67,6 @@ st.image('img/logo_minjus.svg', width=100)
 '''
 # Conditions de logement
 '''
-
-# st.write(df_menage)
 
 # ===========================
 # MARK: Population des 60 ans et plus isolés
@@ -144,7 +90,9 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])/100,'personnes sur 100.000 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, 2),'personnes sur 100.000.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])/100,'personnes sur 100 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, 2),'personnes sur 100.', unsafe_allow_html=True)
+
+st.write('A REVOIR JD : SUR 100 OU SUR 1000 ?')
 st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 
 
@@ -174,9 +122,7 @@ fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
-# st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', on trouve', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),' personnes âgées vivant dans un appartement <i>sans ascenceur</i>. En moyenne, dans les cours d appel Françaises, ce chiffre est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()),'.', unsafe_allow_html=True)
 st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0],2),'personnes sur 100 sont des personnes âgées vivant dans un appartement <i>sans ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(),2),'personnes sur 100.', unsafe_allow_html=True)
-# st.write('Note JD: OK ratio 100')
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
@@ -204,8 +150,6 @@ fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
-# st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', on trouve', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),' personnes âgées vivant dans un appartement <i>avec ascenceur</i>. En moyenne, dans les cours d’appel Françaises, ce chiffre est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()),'.', unsafe_allow_html=True)
 st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0],2),'personnes sur 100 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(),2),'personnes sur 100.', unsafe_allow_html=True)
-# st.write('Note JD: OK ratio 100')
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
