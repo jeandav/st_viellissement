@@ -157,6 +157,7 @@ st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _sans ascenseur_ :
+_Pour 100.000 habitants._
 '''
 
 # st.write('✅')
@@ -187,6 +188,7 @@ st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _avec ascenseur_ :
+_Pour 100.000 habitants._
 '''
 
 # st.write('✅')
