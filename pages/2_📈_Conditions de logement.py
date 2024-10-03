@@ -125,13 +125,13 @@ st.image('img/logo_minjus.svg', width=100)
 '''
 ---
 ### Population des 60 ans et plus isolés
-_Pour 100 000 habitants._
+_Pour 100.000 habitants._
 '''
 
 
 fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés pour 100.000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
@@ -152,7 +152,7 @@ st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_c
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _sans ascenseur_ :
-_Pour 100 000 habitants._
+_Pour 100.000 habitants._
 '''
 
 # st.write('✅')
@@ -161,7 +161,7 @@ df_menage_filtered = df_menage[df_menage['CA'].isin(selected_ca)]
 
 fig = px.bar(df_menage_filtered, x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur"
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100.000 habitants"
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
@@ -180,7 +180,7 @@ st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_fil
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _avec ascenseur_ :
-_Pour 100 000 habitants._
+_Pour 100.000 habitants._
 '''
 
 # st.write('✅')
@@ -189,7 +189,7 @@ _Pour 100 000 habitants._
 
 fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_AV_ASC_pop", y="CA", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur"
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100.000 habitants"
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})

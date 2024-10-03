@@ -106,7 +106,7 @@ st.image('img/logo_minjus.svg', width=100)
 
 st.write("""
 <h3>Nombre de bénéficiaires de l'APA* <em>à domicile</em></h3>
-Payés au titre du mois de décembre 2022, pour 100 000 habitants
+Payés au titre du mois de décembre 2022, pour 100.000 habitants
 <br>
 <em>*Allocation personnalisée d'autonomie</em>
 """, unsafe_allow_html=True)
@@ -115,7 +115,7 @@ Payés au titre du mois de décembre 2022, pour 100 000 habitants
 
 fig = px.bar(filtered_df_cluster, x="N_apa_dom", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA à domicile"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 100.000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
@@ -128,7 +128,7 @@ st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel d
 
 st.write("""
 <h3>Nombre de bénéficiaires de l'APA* <em>en établissement</em></h3>
-Payés au titre du mois de décembre 2022, pour 100 000 habitants
+Payés au titre du mois de décembre 2022, pour 100.000 habitants
 <br>
 <em>*Allocation personnalisée d'autonomie</em>
 """, unsafe_allow_html=True)
@@ -136,7 +136,7 @@ Payés au titre du mois de décembre 2022, pour 100 000 habitants
 
 fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA en établissement"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 100.000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
@@ -164,7 +164,7 @@ Pour 100.000 habitants<br>
 
 fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', height=300)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH (en milliers)"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH pour 100.000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
