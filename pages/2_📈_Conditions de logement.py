@@ -51,8 +51,8 @@ df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on=
 df_menage = pd.merge(df_menage, df_popglobale, left_on='CA', right_on='pop')
 
 df_menage['pop_2016'] = df_menage['pop_2016'].astype(float)
-df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC'] / df_menage['pop_2016'])*1000000
-df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC'] / df_menage['pop_2016'])*1000000
+df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_AV_ASC'] / df_menage['pop_2016'])*100
+df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'] = (df_menage['X60_ANS_ET_PLUS_APPART_SS_ASC'] / df_menage['pop_2016'])*100
 
 
 # -----------------------------------------------------------------------------
@@ -129,22 +129,22 @@ st.image('img/logo_minjus.svg', width=100)
 '''
 ---
 ### Population des 60 ans et plus isolés
-_Pour 100.000 habitants._
+_Pour 100 habitants._
 '''
 
 
-fig = px.bar(filtered_df_cluster, x="N_x60_ans_et_plus_isoles", y="ressort_ca", orientation='h', height=jd_graph_height, text='N_x60_ans_et_plus_isoles')
+fig = px.bar(filtered_df_cluster, x=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/100, y="ressort_ca", orientation='h', height=jd_graph_height, text=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/100)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés pour 100.000 habitants",
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés pour 100 habitants",
     hovermode=False
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])*1,'personnes sur 100.000 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])/100,'personnes sur 100.000 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, 2),'personnes sur 100.000.', unsafe_allow_html=True)
 st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 
 
@@ -157,16 +157,16 @@ st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _sans ascenseur_ :
-_Pour 100.000 habitants._
+_Pour 100 habitants._
 '''
 
 # st.write('✅')
 
 df_menage_filtered = df_menage[df_menage['CA'].isin(selected_ca)]
 
-fig = px.bar(df_menage_filtered, x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=jd_graph_height, text=round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop']))
+fig = px.bar(df_menage_filtered, x="X60_ANS_ET_PLUS_APPART_SS_ASC_pop", y="CA", orientation='h', height=jd_graph_height, text=round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'],2))
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100.000 habitants",
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100 habitants",
     hovermode=False
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
@@ -175,8 +175,8 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 # st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', on trouve', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),' personnes âgées vivant dans un appartement <i>sans ascenceur</i>. En moyenne, dans les cours d appel Françaises, ce chiffre est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()),'.', unsafe_allow_html=True)
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0]),'personnes sur 100.000 sont des personnes âgées vivant dans un appartement <i>sans ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
-st.write('Note JD: OK ratio 100.000')
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_SS_ASC_pop'].iloc[0],2),'personnes sur 100 sont des personnes âgées vivant dans un appartement <i>sans ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(),2),'personnes sur 100.', unsafe_allow_html=True)
+# st.write('Note JD: OK ratio 100')
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 
@@ -188,16 +188,16 @@ st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')
 '''
 ---
 ### Population des 60 ans et plus dans un appartement _avec ascenseur_ :
-_Pour 100.000 habitants._
+_Pour 100 habitants._
 '''
 
 # st.write('✅')
 
 
 
-fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_AV_ASC_pop", y="CA", orientation='h', height=jd_graph_height, text=round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop']))
+fig = px.bar(df_menage[df_menage['CA'].isin(selected_ca)], x="X60_ANS_ET_PLUS_APPART_AV_ASC_pop", y="CA", orientation='h', height=jd_graph_height, text=round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'],2))
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100.000 habitants",
+    yaxis_title="Cour d\'appel", xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100 habitants",
     hovermode=False
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="lightgrey", annotation_text="France", annotation_position="top")
@@ -205,7 +205,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 # st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),', on trouve', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),' personnes âgées vivant dans un appartement <i>avec ascenceur</i>. En moyenne, dans les cours d’appel Françaises, ce chiffre est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()),'.', unsafe_allow_html=True)
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0]),'personnes sur 100.000 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean()),'personnes sur 100.000.', unsafe_allow_html=True)
-st.write('Note JD: OK ratio 100.000')
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',df_menage_filtered['CA'].iloc[0].title(),',', round(df_menage_filtered['X60_ANS_ET_PLUS_APPART_AV_ASC_pop'].iloc[0],2),'personnes sur 100 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population Française, ce ratio est de',round(df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(),2),'personnes sur 100.', unsafe_allow_html=True)
+# st.write('Note JD: OK ratio 100')
 
 st.markdown(':grey[Source : _Insee; exploitation PEP/DSJ_]')

@@ -163,7 +163,7 @@ data_med_disp = df_rev_disp[df_rev_disp['ca'] == selected_ca[0]]
 
 # st.write('Le revenu disponible par uniré de consommation correspond au niveau de vie d un ménage')
 
-st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Par exemple, au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title(),', le revenu disponible par unité de consommation est de ',round(data_med_disp[pop_options[selected_pop]].iloc[0]),'€, contre ',round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean()),'€ dans la population Française.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title(),', le revenu disponible par unité de consommation est de ',round(data_med_disp[pop_options[selected_pop]].iloc[0]),'€, contre ',round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean()),'€ dans la population Française.', unsafe_allow_html=True)
 
 # st.markdown(':grey[Source : _Insee, Revenus localisés sociaux et fiscaux (Filosofi); exploitation PEP/DSJ_]')
 
