@@ -41,24 +41,24 @@ def get_rev_disp_data():
     return df
 
 
-def get_popglobale_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+# def get_popglobale_data():
+#     DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+#     df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
 
-    return df
+#     return df
 
 
 
 df_cluster = get_cluster_data()
 df_intens_pauv = get_intens_pauv_data()
 df_rev_disp = get_rev_disp_data()
-df_popglobale = get_popglobale_data()
+# df_popglobale = get_popglobale_data()
 
-df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
-df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
+# df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+# df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
-df_rev_disp = pd.merge(df_rev_disp, df_popglobale, left_on='ca', right_on='pop')
-df_rev_disp['med_rev_disp_pop'] = (df_rev_disp['med_rev_disp'] / df_rev_disp['pop_2024'])*100
+# df_rev_disp = pd.merge(df_rev_disp, df_popglobale, left_on='ca', right_on='pop')
+# df_rev_disp['med_rev_disp_pop'] = (df_rev_disp['med_rev_disp'] / df_rev_disp['pop_2024'])*100
 
 
 # -----------------------------------------------------------------------------
@@ -107,7 +107,11 @@ with st.sidebar:
     Pôle de l'Evaluation et de la Prospective
     """, unsafe_allow_html=True)
 
-
+jd_graph_height = 300
+if len(selected_ca) > 3:
+    jd_graph_height = 500
+else:
+    jd_graph_height = 300
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
@@ -147,7 +151,7 @@ selected_pop = st.selectbox(
 # st.write(df_rev_disp)
 # st.write(pop_options[selected_pop])
 
-fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[selected_pop], y="ca", orientation='h', height=300)
+fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[selected_pop], y="ca", orientation='h', height=jd_graph_height, text=pop_options[selected_pop])
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
 )
@@ -190,7 +194,7 @@ _Pour 100.000 habitants._
 # st.write(filtered_df_cluster)
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_min_vie", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="N_min_vie", y="ressort_ca", orientation='h', height=jd_graph_height, text='N_min_vie')
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 100.000 habitants"
 )
@@ -218,7 +222,7 @@ st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitat
 '''
 # st.bar_chart(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="ca", y="intens_pauv", horizontal=True)
 
-fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=300)
+fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=jd_graph_height, text=round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].intens_pauv,3))
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées"
 )
@@ -240,7 +244,7 @@ st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est dé
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='h', height=jd_graph_height, text="interdecile")
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
 )

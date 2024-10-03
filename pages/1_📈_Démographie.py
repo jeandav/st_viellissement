@@ -66,21 +66,21 @@ def get_persagees_data():
     return df
 
 
-def get_popglobale_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+# def get_popglobale_data():
+#     DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+#     df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
 
-    return df
+#     return df
 
 
 
 df_cluster = get_cluster_data()
 gdp_df = get_gdp_data()
 df_persagees = get_persagees_data()
-df_popglobale = get_popglobale_data()
+# df_popglobale = get_popglobale_data()
 
-df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
-df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
+# df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+# df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
 # -----------------------------------------------------------------------------
 
@@ -126,7 +126,11 @@ with st.sidebar:
     Pôle de l'Evaluation et de la Prospective
     """, unsafe_allow_html=True)
 
-
+jd_graph_height = 300
+if len(selected_ca) > 3:
+    jd_graph_height = 500
+else:
+    jd_graph_height = 300
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
 
@@ -324,7 +328,7 @@ st.markdown(':grey[Source : _Modèle LIVIA (DREES); exploitation PEP/DSJ_]')
 '''
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="ind_vie", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="ind_vie", y="ressort_ca", orientation='h', height=jd_graph_height, text='ind_vie')
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Indice de vieillissement"
 )

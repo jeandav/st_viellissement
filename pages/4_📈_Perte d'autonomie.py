@@ -28,18 +28,18 @@ def get_cluster_data():
     
     return df
 
-def get_popglobale_data():
-    DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
-    df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
+# def get_popglobale_data():
+#     DATA_FILENAME = Path(__file__).parent/'../data/pop_globale_ressort.csv'
+#     df = pd.read_csv(DATA_FILENAME, sep=';', decimal=".")
 
-    return df
+#     return df
 
 # df_persagees = get_persagees_data()
 df_cluster = get_cluster_data()
-df_popglobale = get_popglobale_data()
+# df_popglobale = get_popglobale_data()
 
-df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
-df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
+# df_cluster = pd.merge(df_cluster, df_popglobale, left_on='ressort_ca', right_on='pop')
+# df_cluster['ind_vie_pop'] = df_cluster['ind_vie'] / df_cluster['pop_2024']
 
 
 # -----------------------------------------------------------------------------
@@ -86,7 +86,14 @@ with st.sidebar:
     Direction des services judiciaires <br>
     Pôle de l'Evaluation et de la Prospective
     """, unsafe_allow_html=True)
+    
+    
 
+jd_graph_height = 300
+if len(selected_ca) > 3:
+    jd_graph_height = 500
+else:
+    jd_graph_height = 300
 
 
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
@@ -113,7 +120,7 @@ Payés au titre du mois de décembre 2022, pour 100.000 habitants
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y=["N_apa_dom","N_apa_etab"], horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="N_apa_dom", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="N_apa_dom", y="ressort_ca", orientation='h', height=jd_graph_height, text="N_apa_dom")
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 100.000 habitants"
 )
@@ -134,7 +141,7 @@ Payés au titre du mois de décembre 2022, pour 100.000 habitants
 """, unsafe_allow_html=True)
 # st.write('✅')
 
-fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="N_apa_etab", y="ressort_ca", orientation='h', height=jd_graph_height, text="N_apa_etab")
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 100.000 habitants"
 )
@@ -162,7 +169,7 @@ Pour 100.000 habitants<br>
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="N_pch", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', height=300)
+fig = px.bar(filtered_df_cluster, x="N_pch", y="ressort_ca", orientation='h', height=jd_graph_height, text="N_pch")
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH pour 100.000 habitants"
 )
