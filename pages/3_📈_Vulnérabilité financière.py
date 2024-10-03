@@ -250,4 +250,3 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 st.write('<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10 % les plus riches et le niveau de vie maximum des 10 % les plus pauvres. A la d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', l’interdécile est de',filtered_df_cluster['interdecile'].iloc[0],'contre',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(),2),'dans l’ensemble de la population Française.', unsafe_allow_html=True)
-# + chiffres

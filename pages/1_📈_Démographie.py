@@ -271,7 +271,18 @@ data_2040_dep = filtered_gdp_df[(filtered_gdp_df['ca'] == selected_ca[0]) & (fil
 # st.write(data_2040_dep)
 
 
+augm2 = ''
+if round(pourcentage_evolution(data_2024['value'].iloc[0], data_2040['value'].iloc[0])):
+    augm2 = '+'
+else:
+     augm2 = ''
 
+
+augm1 = ''
+if (round(pourcentage_evolution(data_2024_dep['nb_proj_seniors'].iloc[0], data_2040_dep['nb_proj_seniors'].iloc[0])) > 0):
+    augm1 = '+'
+else:
+     augm1 = ''
 
 
 st.write('<b><u>Note de lecture :</b></u> En 2040, la DRESS estime un nombre de près de ',
@@ -284,7 +295,8 @@ data_2040['TRANCHAGE'].iloc[0].lower(),
 data_2040['CA'].iloc[0].title(),
 ', contre ',
 int(data_2024['value'].iloc[0]),
-' en 2024, soit une évolution de +',
+' en 2024, soit une évolution de ',
+augm2,
 round(pourcentage_evolution(data_2024['value'].iloc[0], data_2040['value'].iloc[0])),
 '%. S’agissant des ',
 data_2024_dep['genre'].iloc[0].lower(),
@@ -294,9 +306,10 @@ data_2040['TRANCHAGE'].iloc[0].lower(),
 data_2024_dep['nb_proj_seniors'].iloc[0],
 ' en 2024 à ',
 data_2040_dep['nb_proj_seniors'].iloc[0],
-' en 2040, soit (+',
+' en 2040, soit',
+augm1,
 round(pourcentage_evolution(data_2024_dep['nb_proj_seniors'].iloc[0], data_2040_dep['nb_proj_seniors'].iloc[0])),
-'%).',
+'%.',
 unsafe_allow_html=True)
 
 st.markdown(':grey[Source : _Modèle LIVIA (DREES); exploitation PEP/DSJ_]')
