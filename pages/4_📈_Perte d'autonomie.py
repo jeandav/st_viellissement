@@ -112,7 +112,7 @@ Pour 1000 habitants<br>
 
 fig = px.bar(filtered_df_cluster, x=filtered_df_cluster.N_pch/100, y="ressort_ca", orientation='h', height=jd_graph_height, text=filtered_df_cluster.N_pch/100)
 fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH pour 100.000 habitants"
+    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH pour 100 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
