@@ -79,20 +79,20 @@ _Pour 100 habitants._
 '''
 
 
-fig = px.bar(filtered_df_cluster, x=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/100, y="ressort_ca", orientation='h', height=jd_graph_height, text=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/100)
+fig = px.bar(filtered_df_cluster, x=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/1000, y="ressort_ca", orientation='h', height=jd_graph_height, text=(filtered_df_cluster.N_x60_ans_et_plus_isoles)/1000)
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de 60 ans et plus isolés pour 100 habitants",
     hovermode=False
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/1000, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 
-st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])/100,'personnes sur 100 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/100, 2),'personnes sur 100.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> À la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', (filtered_df_cluster['N_x60_ans_et_plus_isoles'].iloc[0])/1000,'personnes sur 100 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population Française, ce ratio est de ',round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/1000, 2),'personnes sur 100.', unsafe_allow_html=True)
 
-st.write('A REVOIR JD : SUR 100 OU SUR 1000 ?')
+# st.write('A REVOIR JD : SUR 100 OU SUR 1000 ?')
 st.markdown(':grey[Source : _Insee ; exploitation PEP/DSJ_]')
 
 
