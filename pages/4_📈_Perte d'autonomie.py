@@ -105,7 +105,7 @@ st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')
 st.write("""
 <hr>
 <h3>Nombre de bénéficiaires de la PCH* de 60 ans et plus</h3>
-Pour 100.000 habitants<br>
+Pour 1000 habitants<br>
 <em>*Prestation de compensation du handicap</em>
 """, unsafe_allow_html=True)
 
