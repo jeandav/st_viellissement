@@ -39,7 +39,7 @@ liste_ca = df_cluster['ressort_ca'].unique()
 
 with st.sidebar:
     cluster_options = liste_cluster_options()
-    chosen_cluster = st.radio("Choix du groupe :", cluster_options.keys(),horizontal=True)
+    chosen_cluster = st.radio("Choix du groupe :", cluster_options.keys(),horizontal=True, index=3)
     '''---'''
     selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
     '''---'''
@@ -47,7 +47,6 @@ with st.sidebar:
 
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
-
 
 # -----------------------------------------------------------------------------
 
