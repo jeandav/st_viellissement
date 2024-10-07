@@ -25,3 +25,24 @@ def sidebar_signature():
     Pôle de l'Evaluation et de la Prospective
     """
     return signature
+
+def format_float(number):
+  """Formats a float number with commas and non-breaking spaces.
+
+  Args:
+    number: A float number to format.
+
+  Returns:
+    A formatted string representation of the number.
+  """
+
+  # Convert the float to a string
+  number_str = str(number)
+  # Insert non-breaking spaces for thousands
+  number_str = number_str[::-1].replace(',', ' ', 3)[::-1]
+  # Replace dots with commas
+  number_str = number_str.replace('.', ',')
+
+
+
+  return number_str
