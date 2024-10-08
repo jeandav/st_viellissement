@@ -77,7 +77,11 @@ pop_options = {
 selected_pop = st.selectbox(
         "Population :",
         pop_options.keys())
-
+pop_options_verbatim = {
+    "Population globale" : "le revenu disponible par unité de consommation de la population",
+    "60-74 ans" : "le revenu disponible par unité de consommation des 60-74 ans",
+    "Plus de 75 ans" : "le revenu disponible par unité de consommation des plus de 75 ans",
+}
 fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[selected_pop], y="ca", orientation='h', height=jd_graph_height, text=pop_options[selected_pop])
 fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
@@ -90,11 +94,12 @@ data_med_disp = df_rev_disp[df_rev_disp['ca'] == selected_ca[0]]
 
 # st.write('Le revenu disponible par uniré de consommation correspond au niveau de vie d un ménage')
 
-st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title()+', dans la catégorie \"',selected_pop,'\" le revenu disponible par unité de consommation est de ',format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),'€, contre ',format_thousands(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean())),'€ sur l’ensemble de la France.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title()+',',pop_options_verbatim[selected_pop], 'est de ',format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),'€, contre ',format_thousands(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean())),'€ sur l’ensemble de la population française.', unsafe_allow_html=True)
 
 
 
 
+# st.write(pop_options_verbatim[selected_pop])
 
 
 
@@ -145,7 +150,7 @@ fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France et en Europe, le seuil est le plus souvent fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite intense. Au sein du ressort de la cour d’appel de ',df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].ca.title(),', ce seuil est de ', format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].intens_pauv, 2)),', contre',format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), 2)),'dans l’ensemble de la population française.',unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite \"intense\". Au sein du ressort de la cour d’appel de ',df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].ca.title(),', ce seuil est de ', format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].intens_pauv, 2)),', contre',format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), 2)),'dans l’ensemble de la population française.',unsafe_allow_html=True)
 
 
 # ===========================
@@ -168,4 +173,4 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
-st.write('<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches et le niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', l’interdécile est de',format_float(filtered_df_cluster['interdecile'].iloc[0]),'contre',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(),2)),'dans l’ensemble de la population française.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', l’interdécile est de',format_float(filtered_df_cluster['interdecile'].iloc[0]),'contre',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(),2)),'dans l’ensemble de la population française.', unsafe_allow_html=True)
