@@ -10,6 +10,7 @@ from pages.jd_functions.jd_func import select_graph_height
 from pages.jd_functions.jd_func import liste_cluster_options
 from pages.jd_functions.jd_func import sidebar_signature
 from pages.jd_functions.jd_func import format_float
+from pages.jd_functions.jd_func import format_thousands
 
 
 from pages.jd_functions.jd_func_import import get_cluster_data
@@ -89,7 +90,7 @@ data_med_disp = df_rev_disp[df_rev_disp['ca'] == selected_ca[0]]
 
 # st.write('Le revenu disponible par uniré de consommation correspond au niveau de vie d un ménage')
 
-st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title(),', dans la catégorie \"',selected_pop,'\" le revenu disponible par unité de consommation est de ',format_float(round(data_med_disp[pop_options[selected_pop]].iloc[0])),'€, contre ',format_float(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean())),'€ sur l’ensemble de la France.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title()+', dans la catégorie \"',selected_pop,'\" le revenu disponible par unité de consommation est de ',format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),'€, contre ',format_thousands(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean())),'€ sur l’ensemble de la France.', unsafe_allow_html=True)
 
 
 
@@ -119,7 +120,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 
-st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', format_float(round(filtered_df_cluster['N_min_vie'].iloc[0]/100,2)),'personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100,2)),'personnes sur 1&nbsp;000.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_min_vie'].iloc[0]/100,2)),'personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100,2)),'personnes sur 1&nbsp;000.', unsafe_allow_html=True)
 
 st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]')
 

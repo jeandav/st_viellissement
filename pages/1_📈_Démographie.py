@@ -10,6 +10,7 @@ from pages.jd_functions.jd_func import select_graph_height
 from pages.jd_functions.jd_func import liste_cluster_options
 from pages.jd_functions.jd_func import sidebar_signature
 from pages.jd_functions.jd_func import format_float
+from pages.jd_functions.jd_func import format_thousands
 
 
 from pages.jd_functions.jd_func_import import get_cluster_data
@@ -203,15 +204,15 @@ else:
 
 
 st.write('<b><u>Note de lecture :</b></u> En 2040, la DRESS estime un nombre de près de ',
-format_float(int(data_2040['value'].iloc[0])),
+format_thousands(int(data_2040['value'].iloc[0])),
 ' ',
 data_2040['SEXE'].iloc[0].lower(),
 ' de ',
 data_2040['TRANCHAGE'].iloc[0].lower(),
 ' à la cour d’appel de ',
-data_2040['CA'].iloc[0].title(),
-', contre ',
-format_float(int(data_2024['value'].iloc[0])),
+data_2040['CA'].iloc[0].title()+',',
+' contre ',
+format_thousands(int(data_2024['value'].iloc[0])),
 ' en 2024, soit une évolution de ',
 augm2,
 format_float(round(pourcentage_evolution(data_2024['value'].iloc[0], data_2040['value'].iloc[0]))),
@@ -220,9 +221,9 @@ data_2024_dep['genre'].iloc[0].lower(),
 'de ',
 data_2040['TRANCHAGE'].iloc[0].lower(),
 ' en établissement en situation de dépendance, on passe de ',
-format_float(data_2024_dep['nb_proj_seniors'].iloc[0]),
+format_thousands(data_2024_dep['nb_proj_seniors'].iloc[0]),
 ' en 2024 à ',
-format_float(data_2040_dep['nb_proj_seniors'].iloc[0]),
+format_thousands(data_2040_dep['nb_proj_seniors'].iloc[0]),
 ' en 2040, soit',
 augm1,
 format_float(round(pourcentage_evolution(data_2024_dep['nb_proj_seniors'].iloc[0], data_2040_dep['nb_proj_seniors'].iloc[0]))),
@@ -254,5 +255,5 @@ data_iv = filtered_df_cluster[filtered_df_cluster['ressort_ca'] == selected_ca[0
 # st.write(data_iv)
 
 
-st.write('<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé plus il est favorable aux personnes âgées. Par exemple, à la cour d’appel de',data_2040['CA'].iloc[0].title(),', on dénombre ',format_float(data_iv['ind_vie'].iloc[0]),' seniors de plus de 65 ans pour 100 jeunes de moins de 20 ans. Au niveau national, ce chiffre s’élève à 86.', unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé plus il est favorable aux personnes âgées. Par exemple, à la cour d’appel de',data_2040['CA'].iloc[0].title()+', ','on dénombre ',format_float(data_iv['ind_vie'].iloc[0]),' seniors de plus de 65 ans pour 100 jeunes de moins de 20 ans. Au niveau national, ce chiffre s’élève à 86.', unsafe_allow_html=True)
 st.markdown(':grey[Source : _Insee, Recensement de la population (RP), exploitation principale; exploitation PEP/DSJ_]')

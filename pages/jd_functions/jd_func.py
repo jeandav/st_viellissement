@@ -22,27 +22,35 @@ def sidebar_signature():
     <b>Réalisation</b><br>
     Ministère de la Justice<br>
     Direction des services judiciaires <br>
-    Pôle de l'Evaluation et de la Prospective
+    Pôle de l’évaluation et de la prospective
     """
     return signature
 
 def format_float(number):
-  """Formats a float number with commas and non-breaking spaces.
 
-  Args:
-    number: A float number to format.
-
-  Returns:
-    A formatted string representation of the number.
-  """
-
-  # Convert the float to a string
   number_str = str(number)
   # Insert non-breaking spaces for thousands
-  number_str = number_str[::-1].replace(',', ' ', 3)[::-1]
+  # number_str = number_str[::-1].replace(',', ' ', 3)[::-1]
   # Replace dots with commas
   number_str = number_str.replace('.', ',')
 
 
 
   return number_str
+
+def format_thousands(number):
+    # Check if the number is an integer by comparing it to its int equivalent
+    if number == int(number):
+        # Format the integer part with thousands separator and no decimals
+        formatted_str = f"{int(number):,}"
+    else:
+        # Format with thousands separator and two decimal places for floats
+        formatted_str = f"{number:,.2f}"
+   
+    # Replace commas with non-breaking spaces (using Unicode \u00A0 for non-breaking space)
+    formatted_str = formatted_str.replace(",", "\u00A0")
+   
+    # Replace the dot with a comma (for decimals)
+    formatted_str = formatted_str.replace(".", ",")
+   
+    return formatted_str

@@ -71,17 +71,16 @@ fig.update_layout(
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', format_float(round(filtered_df_cluster['N_apa_dom'].iloc[0]/100,2)),' personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_apa_dom'].iloc[0]/100,2)),' personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
 
 # ===========================
 # MARK: Nombre de bénéficiaires de l'APA en établissement
 # ===========================
 
 st.write("""
-<h3>Nombre de bénéficiaires de l'APA* <em>en établissement</em></h3>
+<h3>Nombre de bénéficiaires de l'APA <em>en établissement</em></h3>
 Payés au titre du mois de décembre 2022, pour 1&nbsp;000 habitants
 <br>
-<em>*Allocation personnalisée d'autonomie</em>
 """, unsafe_allow_html=True)
 # st.write('✅')
 
@@ -94,7 +93,7 @@ st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
 
-st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', format_float(round(filtered_df_cluster['N_apa_etab'].iloc[0]/100,2)),' personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_apa_etab'].iloc[0]/100,2)),' personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
 st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')
 
 
@@ -104,9 +103,8 @@ st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')
 
 st.write("""
 <hr>
-<h3>Nombre de bénéficiaires de la PCH* de 60 ans et plus</h3>
+<h3>Nombre de bénéficiaires de la PCH de 60 ans et plus</h3>
 Pour 1&nbsp;000 habitants<br>
-<em>*Prestation de compensation du handicap</em>
 """, unsafe_allow_html=True)
 
 
@@ -118,5 +116,5 @@ fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),',', format_float(round(filtered_df_cluster['N_pch'].iloc[0]/100,2)),'personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
+st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_pch'].iloc[0]/100,2)),'personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH (Prestation de compensation du handicap). Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
 st.markdown(':grey[Source : _DREES; exploitation PEP/DSJ_]')
