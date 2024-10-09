@@ -90,7 +90,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_x60_ans_et_plus_isoles.mean()/1000, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_x60_ans_et_plus_isoles.mean()/1000, line_width=1, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_x60_ans_et_plus_isoles.mean()/1000, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -125,7 +125,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_menage[df_menage['CA'].isin(cluster_options[chosen_cluster])].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_menage[df_menage['CA'].isin(cluster_options[chosen_cluster])].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(), line_width=1.5, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -156,7 +156,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_menage[df_menage['CA'].isin(liste_ca)].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_menage[df_menage['CA'].isin(cluster_options[chosen_cluster])].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_menage[df_menage['CA'].isin(cluster_options[chosen_cluster])].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(), line_width=1.2, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})

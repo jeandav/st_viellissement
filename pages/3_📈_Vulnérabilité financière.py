@@ -90,7 +90,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(cluster_options[chosen_cluster])][pop_options[selected_pop]].mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(cluster_options[chosen_cluster])][pop_options[selected_pop]].mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -124,7 +124,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_min_vie.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_min_vie.mean()/100, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -154,7 +154,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(cluster_options[chosen_cluster])].intens_pauv.mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(cluster_options[chosen_cluster])].intens_pauv.mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -178,7 +178,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].interdecile.mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].interdecile.mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 

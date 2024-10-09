@@ -73,7 +73,7 @@ fig.update_layout(
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_dom.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_dom.mean()/100, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -96,7 +96,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_etab.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_etab.mean()/100, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
@@ -124,7 +124,7 @@ fig.update_layout(
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_pch.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_pch.mean()/100, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
