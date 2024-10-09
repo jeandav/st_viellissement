@@ -55,7 +55,7 @@ with st.sidebar:
     '''---'''
     selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
     '''---'''
-    chosen_mean = st.checkbox('Afficher la moyenne du groupe')
+    chosen_mean = st.checkbox('Afficher la moyenne du groupe', True)
     # st.write(chosen_mean)
     '''---'''
     st.write(sidebar_signature(), unsafe_allow_html=True)

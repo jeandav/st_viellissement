@@ -46,6 +46,8 @@ with st.sidebar:
     '''---'''
     selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
     '''---'''
+    chosen_mean = st.checkbox('Afficher la moyenne du groupe', True)
+    '''---'''
     st.write(sidebar_signature(), unsafe_allow_html=True)
 
 jd_graph_height = select_graph_height(len(selected_ca))
@@ -87,6 +89,8 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
 )
 fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(cluster_options[chosen_cluster])][pop_options[selected_pop]].mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -119,6 +123,8 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_min_vie.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -147,6 +153,8 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées"
 )
 fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(cluster_options[chosen_cluster])].intens_pauv.mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
@@ -169,6 +177,8 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].interdecile.mean(), line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 

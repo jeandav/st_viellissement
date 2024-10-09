@@ -38,6 +38,8 @@ with st.sidebar:
     '''---'''
     selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
     '''---'''
+    chosen_mean = st.checkbox('Afficher la moyenne du groupe', True)
+    '''---'''
     st.write(sidebar_signature(), unsafe_allow_html=True)
 
 jd_graph_height = select_graph_height(len(selected_ca))
@@ -69,6 +71,10 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 1&nbsp;000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+
+if chosen_mean:
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_dom.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_apa_dom'].iloc[0]/100,2)),' personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_dom.mean()/100,2)),'personnes sur 1&nbsp;000.',unsafe_allow_html=True)
@@ -89,6 +95,10 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 1&nbsp;000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_apa_etab.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_apa_etab.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
+
+
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
@@ -113,6 +123,8 @@ fig.update_layout(
     yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires de la PCH pour 1&nbsp;000 habitants"
 )
 fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_pch.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+if chosen_mean:
+    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_pch.mean()/100, line_width=1.5, line_color="red", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='red')
 
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
