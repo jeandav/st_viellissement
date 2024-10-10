@@ -43,7 +43,11 @@ with st.sidebar:
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
+filtered_df_liste_ca = df_cluster[df_cluster["ressort_ca"].isin(liste_ca)]
+
 # -----------------------------------------------------------------------------
+
+first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
 
 st.image(constants.img_logo, width=constants.img_width)
 
@@ -76,11 +80,12 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 1&nbsp;000 habitants",
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
 fig.add_vline(
-    x=df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_apa_dom.mean() / 100,
+    x=filtered_df_liste_ca.N_apa_dom.mean() / 100,
     line_width=constants.line_france_width,
     line_color=constants.line_france_color,
     annotation_text=constants.line_france_text,
@@ -105,13 +110,13 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_dom"].iloc[0] / 100, 2)),
     " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
         round(
-            df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_apa_dom.mean() / 100,
+            filtered_df_liste_ca.N_apa_dom.mean() / 100,
             2,
         )
     ),
@@ -143,10 +148,11 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 1&nbsp;000 habitants",
+    margin_pad=constants.margin_pad
 )
 # ========== Moyenne France ==========
 fig.add_vline(
-    x=df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_apa_etab.mean() / 100,
+    x=filtered_df_liste_ca.N_apa_etab.mean() / 100,
     line_width=constants.line_france_width,
     line_color=constants.line_france_color,
     annotation_text=constants.line_france_text,
@@ -172,13 +178,13 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_etab"].iloc[0] / 100, 2)),
     " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
         round(
-            df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_apa_etab.mean() / 100,
+            filtered_df_liste_ca.N_apa_etab.mean() / 100,
             2,
         )
     ),
@@ -213,11 +219,12 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Nombre de bénéficiaires de la PCH pour 1&nbsp;000 habitants",
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
 fig.add_vline(
-    x=df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_pch.mean() / 100,
+    x=filtered_df_liste_ca.N_pch.mean() / 100,
     line_width=constants.line_france_width,
     line_color=constants.line_france_color,
     annotation_text=constants.line_france_text,
@@ -241,12 +248,12 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_pch"].iloc[0] / 100, 2)),
     "personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH (Prestation de compensation du handicap). Sur l’ensemble de la population française, ce ratio est de",
     format_float(
-        round(df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_pch.mean() / 100, 2)
+        round(filtered_df_liste_ca.N_pch.mean() / 100, 2)
     ),
     "personnes sur 1&nbsp;000.",
     unsafe_allow_html=True,

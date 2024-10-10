@@ -48,6 +48,8 @@ with st.sidebar:
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
+first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
+
 # -----------------------------------------------------------------------------
 
 st.image(constants.img_logo, width=constants.img_width)
@@ -86,7 +88,8 @@ fig = px.bar(
     text=pop_options[selected_pop],
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel", xaxis_title="Revenu médian disponible (€)"
+    yaxis_title="Cour d'appel", xaxis_title="Revenu médian disponible (€)",
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -155,6 +158,7 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants",
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -184,8 +188,8 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_min_vie"].iloc[0] / 100, 2)),
     "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
@@ -225,6 +229,7 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Intensité de la pauvreté des personnes agées",
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -253,8 +258,8 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    '<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite "intense". Au sein du ressort de la cour d’appel de ',
-    df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)].iloc[0].ca.title(),
+    '<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite "intense". Au sein du ressort de la cour d’appel ',
+    constants.noms_apostrophe[first_ca],
     ", ce seuil est de ",
     format_float(
         round(
@@ -280,8 +285,6 @@ st.write(
 ### Interdécile
 """
 
-# st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
-
 fig = px.bar(
     filtered_df_cluster,
     x="interdecile",
@@ -290,7 +293,8 @@ fig = px.bar(
     height=jd_graph_height,
     text="interdecile",
 )
-fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Interdécile")
+fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Interdécile",
+    margin_pad=constants.margin_pad)
 
 # ========== Moyenne France ==========
 fig.add_vline(
@@ -318,8 +322,8 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title(),
+    "<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel ",
+    constants.noms_apostrophe[first_ca],
     ", l’interdécile est de",
     format_float(filtered_df_cluster["interdecile"].iloc[0]),
     "contre",

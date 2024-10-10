@@ -1,28 +1,33 @@
 import streamlit as st
 
+import pages.jd_functions.constants as constants
+
+# -----------------------------------------------------------------------------
+
 st.set_page_config(
-    page_title="Tableau de bord du vieillissement démographique",
-    # page_icon="👋",
+    page_title=constants.config_page_title,
+    page_icon=constants.config_page_icon,
+    layout=constants.config_layout,
 )
-st.image('img/logo_minjus.svg', width=100)
+
+# -----------------------------------------------------------------------------
+
+st.image(constants.img_logo, width=constants.img_width)
 
 st.write("# Tableau de bord du vieillissement démographique")
 
 st.sidebar.success("Sélectionner une thématique ci-dessus.")
-
 
 st.markdown(
     """
     Le tableau de bord du vieillissement compile des données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
 
     **👈 Sélectionnez un thème dans le volet ci-contre** pour les visualiser.
-"""
+    """
 )
 
-st.markdown("")
-st.markdown("")
-st.markdown("")
-
+for _ in range(3):
+    st.markdown("")
 
 st.markdown(
     """

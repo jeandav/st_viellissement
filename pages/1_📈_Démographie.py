@@ -57,14 +57,10 @@ st.image(constants.img_logo, width=constants.img_width)
 ---
 """
 
-min_value = gdp_df["annee"].min()
-max_value = gdp_df["annee"].max()
-
-from_year = min_value
-to_year = max_value
+from_year = gdp_df["annee"].min()
+to_year = gdp_df["annee"].max()
 
 liste_ca = gdp_df["ca"].unique()
-
 
 genre_options = {
     "Femmes": "FEMMES",
@@ -121,6 +117,8 @@ fig.update_layout(
     xaxis_title="Année",
     legend_title=None,
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    # margin_pad=constants.margin_pad,
+    hovermode="x unified"
 )
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
@@ -156,6 +154,8 @@ fig.update_layout(
     xaxis_title="Année",
     legend_title=None,
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    # margin_pad=constants.margin_pad,
+    hovermode="x unified",
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -273,13 +273,16 @@ fig = px.bar(
     height=jd_graph_height,
     text="ind_vie",
 )
-fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Indice de vieillissement")
+fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Indice de vieillissement",
+    margin_pad=constants.margin_pad)
+
+# ========== Moyenne France ==========
 fig.add_vline(
     x=86,
-    line_width=1.5,
-    line_color="lightgrey",
-    annotation_text="France",
-    annotation_position="top",
+    line_width=constants.line_france_width,
+    line_color=constants.line_france_color,
+    annotation_text=constants.line_france_text,
+    annotation_position=constants.line_france_annotation_position,
 )
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})

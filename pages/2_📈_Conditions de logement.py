@@ -28,8 +28,6 @@ df_menage = get_menage_data()
 df_popglobale = get_popglobale_data()
 
 df_cluster = pd.merge(df_cluster, df_popglobale, left_on="ressort_ca", right_on="pop")
-
-
 df_menage = pd.merge(df_menage, df_popglobale, left_on="CA", right_on="pop")
 
 df_menage["pop_2016"] = df_menage["pop_2016"].astype(float)
@@ -65,6 +63,10 @@ with st.sidebar:
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
+
+df_menage_filtered = df_menage[df_menage["CA"].isin(selected_ca)]
+first_ca = df_menage_filtered["CA"].iloc[0]
+
 # -----------------------------------------------------------------------------
 
 st.image(constants.img_logo, width=constants.img_width)
@@ -90,13 +92,14 @@ fig = px.bar(
     y="ressort_ca",
     orientation="h",
     height=jd_graph_height,
-    text=(filtered_df_cluster.N_x60_ans_et_plus_isoles) / 1000,
+    text=round((filtered_df_cluster.N_x60_ans_et_plus_isoles) / 1000,2),
 )
 
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Nombre de 60 ans et plus isolés pour 100 habitants",
-    hovermode=False,
+    # hovermode=False,
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -127,12 +130,11 @@ if chosen_mean:
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
-    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
-    format_float((filtered_df_cluster["N_x60_ans_et_plus_isoles"].iloc[0]) / 1000),
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
+    format_float(round((filtered_df_cluster["N_x60_ans_et_plus_isoles"].iloc[0]) / 1000,2)),
     "personnes sur 100 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population française, ce ratio est de ",
     format_float(
         round(
@@ -161,7 +163,6 @@ st.markdown(":grey[Source : _Insee ; exploitation PEP/DSJ_]")
 _Pour 100 habitants_
 """
 
-df_menage_filtered = df_menage[df_menage["CA"].isin(selected_ca)]
 
 fig = px.bar(
     df_menage_filtered,
@@ -174,7 +175,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100 habitants",
-    hovermode=False,
+    # hovermode=False,
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -205,8 +207,8 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
-    df_menage_filtered["CA"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(
         round(df_menage_filtered["X60_ANS_ET_PLUS_APPART_SS_ASC_pop"].iloc[0], 2)
     ),
@@ -247,7 +249,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="Cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100 habitants",
-    hovermode=False,
+    # hovermode=False,
+    margin_pad=constants.margin_pad
 )
 
 # ========== Moyenne France ==========
@@ -279,10 +282,10 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
-    df_menage_filtered["CA"].iloc[0].title() + ",",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[first_ca] + ",",
     format_float(
-        round(df_menage_filtered["X60_ANS_ET_PLUS_APPART_AV_ASC_pop"].iloc[0], 2)
+        round(df_menage_filtered[df_menage_filtered["CA"] == first_ca].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.iloc[0], 2)
     ),
     "personnes sur 100 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
