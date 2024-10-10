@@ -1,6 +1,8 @@
+import streamlit as st
 import pandas as pd
 from pathlib import Path
-# @st.cache_data
+
+@st.cache_data
 
 def get_cluster_data():
     DATA_FILENAME = Path(__file__).parent/'../../data/df_cluster_complete.csv'

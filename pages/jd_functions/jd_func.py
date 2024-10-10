@@ -17,15 +17,6 @@ def liste_cluster_options():
     }
     return cluster_options
 
-def sidebar_signature():
-    signature = """
-    <b>Réalisation</b><br>
-    Ministère de la Justice<br>
-    Direction des services judiciaires <br>
-    Pôle de l’évaluation et de la prospective
-    """
-    return signature
-
 def format_float(number):
 
   number_str = str(number)

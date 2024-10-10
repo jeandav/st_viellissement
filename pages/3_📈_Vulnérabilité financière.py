@@ -1,140 +1,206 @@
 import streamlit as st
-import pandas as pd
-import math
-from pathlib import Path
 
 import plotly.express as px
-import numpy as np
 
 from pages.jd_functions.jd_func import select_graph_height
-from pages.jd_functions.jd_func import liste_cluster_options
-from pages.jd_functions.jd_func import sidebar_signature
 from pages.jd_functions.jd_func import format_float
 from pages.jd_functions.jd_func import format_thousands
 
+import pages.jd_functions.constants as constants
 
 from pages.jd_functions.jd_func_import import get_cluster_data
 from pages.jd_functions.jd_func_import import get_intens_pauv_data
 from pages.jd_functions.jd_func_import import get_rev_disp_data
 
 
-
 # -----------------------------------------------------------------------------
 
 st.set_page_config(
-    page_title='Evolution du vieillissement',
-    page_icon=':chart_with_upwards_trend:',
-    layout="centered"
+    page_title=constants.config_page_title,
+    page_icon=constants.config_page_icon,
+    layout=constants.config_layout,
 )
 
 # -----------------------------------------------------------------------------
-
-# @st.cache_data
 
 df_cluster = get_cluster_data()
 df_intens_pauv = get_intens_pauv_data()
 df_rev_disp = get_rev_disp_data()
 
-
 # -----------------------------------------------------------------------------
 
-liste_ca = df_cluster['ressort_ca'].unique()
+liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
-    cluster_options = liste_cluster_options()
-    chosen_cluster = st.radio("Choix du groupe :", cluster_options.keys(),horizontal=True, index=3)
-    '''---'''
-    selected_ca = st.multiselect('Choix de la cour d\'appel :', liste_ca, cluster_options[chosen_cluster])
-    '''---'''
-    chosen_mean = st.checkbox('Afficher la moyenne du groupe', True)
-    '''---'''
-    st.write(sidebar_signature(), unsafe_allow_html=True)
+    cluster_options = constants.cluster_options
+    chosen_cluster = st.radio(
+        "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
+    )
+    """---"""
+    selected_ca = st.multiselect(
+        "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
+    )
+    """---"""
+    chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
+    """---"""
+    st.write(constants.pep_signature, unsafe_allow_html=True)
 
 jd_graph_height = select_graph_height(len(selected_ca))
-filtered_df_cluster = df_cluster[df_cluster['ressort_ca'].isin(selected_ca)]
+filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
 # -----------------------------------------------------------------------------
 
-st.image('img/logo_minjus.svg', width=100)
+st.image(constants.img_logo, width=constants.img_width)
 
-'''
+"""
 # Vulnérabilité financière
-'''
+"""
 
 # ===========================
 # MARK: Médiane du revenu disponible par unité de consommation
 # ===========================
 
 
-'''
+"""
 ---
 ### Médiane du revenu disponible par unité de consommation
-'''
+"""
 
 pop_options = {
-    "Population globale" : "med_rev_disp",
-    "60-74 ans" : "n_vie_60_74",
-    "Plus de 75 ans" : "n_vie_75",
+    "Population globale": "med_rev_disp",
+    "60-74 ans": "n_vie_60_74",
+    "Plus de 75 ans": "n_vie_75",
 }
-selected_pop = st.selectbox(
-        "Population :",
-        pop_options.keys())
+selected_pop = st.selectbox("Population :", pop_options.keys())
 pop_options_verbatim = {
-    "Population globale" : "le revenu disponible par unité de consommation de la population",
-    "60-74 ans" : "le revenu disponible par unité de consommation des 60-74 ans",
-    "Plus de 75 ans" : "le revenu disponible par unité de consommation des plus de 75 ans",
+    "Population globale": "le revenu disponible par unité de consommation de la population",
+    "60-74 ans": "le revenu disponible par unité de consommation des 60-74 ans",
+    "Plus de 75 ans": "le revenu disponible par unité de consommation des plus de 75 ans",
 }
-fig = px.bar(df_rev_disp[df_rev_disp['ca'].isin(selected_ca)], x=pop_options[selected_pop], y="ca", orientation='h', height=jd_graph_height, text=pop_options[selected_pop])
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Revenu médian disponible (€)"
+fig = px.bar(
+    df_rev_disp[df_rev_disp["ca"].isin(selected_ca)],
+    x=pop_options[selected_pop],
+    y="ca",
+    orientation="h",
+    height=jd_graph_height,
+    text=pop_options[selected_pop],
 )
-fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.update_layout(
+    yaxis_title="Cour d'appel", xaxis_title="Revenu médian disponible (€)"
+)
+
+# ========== Moyenne France ==========
+fig.add_vline(
+    x=df_rev_disp[df_rev_disp["ca"].isin(liste_ca)][pop_options[selected_pop]].mean(),
+    line_width=constants.line_france_width,
+    line_color=constants.line_france_color,
+    annotation_text=constants.line_france_text,
+    annotation_position=constants.line_france_annotation_position,
+)
+
+# ========== Moyenne cour ==========
 if chosen_mean:
-    fig.add_vline(x=df_rev_disp[df_rev_disp['ca'].isin(cluster_options[chosen_cluster])][pop_options[selected_pop]].mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
+    fig.add_vline(
+        x=df_rev_disp[df_rev_disp["ca"].isin(cluster_options[chosen_cluster])][
+            pop_options[selected_pop]
+        ].mean(),
+        line_width=constants.line_cour_width,
+        line_color=constants.line_cour_color,
+        annotation_text=chosen_cluster,
+        annotation_position=constants.line_cour_annotation_position,
+        annotation_font_color=constants.line_cour_color,
+    )
 
-st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-data_med_disp = df_rev_disp[df_rev_disp['ca'] == selected_ca[0]]
-
-# st.write('Le revenu disponible par uniré de consommation correspond au niveau de vie d un ménage')
-
-st.write('<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ', data_med_disp['ca'].iloc[0].title()+',',pop_options_verbatim[selected_pop], 'est de ',format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),'€, contre ',format_thousands(round(df_rev_disp[df_rev_disp['ca'].isin(liste_ca)][pop_options[selected_pop]].mean())),'€ sur l’ensemble de la population française.', unsafe_allow_html=True)
-
-
-
-
-# st.write(pop_options_verbatim[selected_pop])
-
-
+# ========== Note de lecture ==========
+data_med_disp = df_rev_disp[df_rev_disp["ca"] == selected_ca[0]]
+st.write(
+    "<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ",
+    data_med_disp["ca"].iloc[0].title() + ",",
+    pop_options_verbatim[selected_pop],
+    "est de ",
+    format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),
+    "€, contre ",
+    format_thousands(
+        round(
+            df_rev_disp[df_rev_disp["ca"].isin(liste_ca)][
+                pop_options[selected_pop]
+            ].mean()
+        )
+    ),
+    "€ sur l’ensemble de la population française.",
+    unsafe_allow_html=True,
+)
 
 # ===========================
 # MARK: Bénéficiaires du minimum vieillesse
 # ===========================
 
-'''
+"""
 ---
 ### Bénéficiaires du minimum vieillesse
 _Pour 1&nbsp;000 habitants_
-'''
+"""
 
 
-fig = px.bar(filtered_df_cluster, x=filtered_df_cluster.N_min_vie/100, y="ressort_ca", orientation='h', height=jd_graph_height, text=filtered_df_cluster.N_min_vie/100)
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants"
+fig = px.bar(
+    filtered_df_cluster,
+    x=filtered_df_cluster.N_min_vie / 100,
+    y="ressort_ca",
+    orientation="h",
+    height=jd_graph_height,
+    text=filtered_df_cluster.N_min_vie / 100,
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100, line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.update_layout(
+    yaxis_title="Cour d'appel",
+    xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants",
+)
+
+# ========== Moyenne France ==========
+fig.add_vline(
+    x=df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_min_vie.mean() / 100,
+    line_width=constants.line_france_width,
+    line_color=constants.line_france_color,
+    annotation_text=constants.line_france_text,
+    annotation_position=constants.line_france_annotation_position,
+)
+
+# ========== Moyenne cour ==========
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].N_min_vie.mean()/100, line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
+    fig.add_vline(
+        x=df_cluster[
+            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+        ].N_min_vie.mean()
+        / 100,
+        line_width=constants.line_cour_width,
+        line_color=constants.line_cour_color,
+        annotation_text=chosen_cluster,
+        annotation_position=constants.line_cour_annotation_position,
+        annotation_font_color=constants.line_cour_color,
+    )
 
-st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
+# ========== Note de lecture ==========
+st.write(
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
+    filtered_df_cluster["ressort_ca"].iloc[0].title() + ",",
+    format_float(round(filtered_df_cluster["N_min_vie"].iloc[0] / 100, 2)),
+    "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de",
+    format_float(
+        round(
+            df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_min_vie.mean() / 100,
+            2,
+        )
+    ),
+    "personnes sur 1&nbsp;000.",
+    unsafe_allow_html=True,
+)
 
-
-
-st.write('<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title()+',', format_float(round(filtered_df_cluster['N_min_vie'].iloc[0]/100,2)),'personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].N_min_vie.mean()/100,2)),'personnes sur 1&nbsp;000.', unsafe_allow_html=True)
-
-st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]')
-
+st.markdown(
+    ":grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]"
+)
 
 
 # ===========================
@@ -142,45 +208,124 @@ st.markdown(':grey[Source : _Drees ; Insee, Estimations de population; exploitat
 # ===========================
 
 
-'''
+"""
 ---
 ### Intensité de la pauvreté au seuil de 60%
-'''
+"""
 # st.bar_chart(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="ca", y="intens_pauv", horizontal=True)
 
-fig = px.bar(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)], x="intens_pauv", y="ca", orientation='h', height=jd_graph_height, text=round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].intens_pauv,2))
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Intensité de la pauvreté des personnes agées"
+fig = px.bar(
+    df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)],
+    x="intens_pauv",
+    y="ca",
+    orientation="h",
+    height=jd_graph_height,
+    text=round(df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)].intens_pauv, 2),
 )
-fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.update_layout(
+    yaxis_title="Cour d'appel",
+    xaxis_title="Intensité de la pauvreté des personnes agées",
+)
+
+# ========== Moyenne France ==========
+fig.add_vline(
+    x=df_intens_pauv[df_intens_pauv["ca"].isin(liste_ca)].intens_pauv.mean(),
+    line_width=constants.line_france_width,
+    line_color=constants.line_france_color,
+    annotation_text=constants.line_france_text,
+    annotation_position=constants.line_france_annotation_position,
+)
+
+# ========== Moyenne cour ==========
 if chosen_mean:
-    fig.add_vline(x=df_intens_pauv[df_intens_pauv['ca'].isin(cluster_options[chosen_cluster])].intens_pauv.mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
+    fig.add_vline(
+        x=df_intens_pauv[
+            df_intens_pauv["ca"].isin(cluster_options[chosen_cluster])
+        ].intens_pauv.mean(),
+        line_width=constants.line_cour_width,
+        line_color=constants.line_cour_color,
+        annotation_text=chosen_cluster,
+        annotation_position=constants.line_cour_annotation_position,
+        annotation_font_color=constants.line_cour_color,
+    )
 
-st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-st.write('<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite \"intense\". Au sein du ressort de la cour d’appel de ',df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].ca.title(),', ce seuil est de ', format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(selected_ca)].iloc[0].intens_pauv, 2)),', contre',format_float(round(df_intens_pauv[df_intens_pauv['ca'].isin(liste_ca)].intens_pauv.mean(), 2)),'dans l’ensemble de la population française.',unsafe_allow_html=True)
+# ========== Note de lecture ==========
+st.write(
+    '<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite "intense". Au sein du ressort de la cour d’appel de ',
+    df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)].iloc[0].ca.title(),
+    ", ce seuil est de ",
+    format_float(
+        round(
+            df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)].iloc[0].intens_pauv,
+            2,
+        )
+    ),
+    ", contre",
+    format_float(
+        round(df_intens_pauv[df_intens_pauv["ca"].isin(liste_ca)].intens_pauv.mean(), 2)
+    ),
+    "dans l’ensemble de la population française.",
+    unsafe_allow_html=True,
+)
 
 
 # ===========================
 # MARK: Interdécile
 # ===========================
 
-'''
+"""
 ---
 ### Interdécile
-'''
+"""
 
 # st.bar_chart(filtered_df_cluster, x="ressort_ca", y="interdecile", horizontal=True)
 
-fig = px.bar(filtered_df_cluster, x="interdecile", y="ressort_ca", orientation='h', height=jd_graph_height, text="interdecile")
-fig.update_layout(
-    yaxis_title="Cour d\'appel", xaxis_title="Interdécile"
+fig = px.bar(
+    filtered_df_cluster,
+    x="interdecile",
+    y="ressort_ca",
+    orientation="h",
+    height=jd_graph_height,
+    text="interdecile",
 )
-fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(), line_width=1.5, line_color="lightgrey", annotation_text="France", annotation_position="top")
+fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Interdécile")
+
+# ========== Moyenne France ==========
+fig.add_vline(
+    x=df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].interdecile.mean(),
+    line_width=constants.line_france_width,
+    line_color=constants.line_france_color,
+    annotation_text=constants.line_france_text,
+    annotation_position=constants.line_france_annotation_position,
+)
+
+# ========== Moyenne cour ==========
 if chosen_mean:
-    fig.add_vline(x=df_cluster[df_cluster['ressort_ca'].isin(cluster_options[chosen_cluster])].interdecile.mean(), line_width=1, line_color="#c46666", annotation_text=chosen_cluster, annotation_position="bottom", annotation_font_color='#c46666')
+    fig.add_vline(
+        x=df_cluster[
+            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+        ].interdecile.mean(),
+        line_width=constants.line_cour_width,
+        line_color=constants.line_cour_color,
+        annotation_text=chosen_cluster,
+        annotation_position=constants.line_cour_annotation_position,
+        annotation_font_color=constants.line_cour_color,
+    )
 
-st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-
-st.write('<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel de',filtered_df_cluster['ressort_ca'].iloc[0].title(),', l’interdécile est de',format_float(filtered_df_cluster['interdecile'].iloc[0]),'contre',format_float(round(df_cluster[df_cluster['ressort_ca'].isin(liste_ca)].interdecile.mean(),2)),'dans l’ensemble de la population française.', unsafe_allow_html=True)
+# ========== Note de lecture ==========
+st.write(
+    "<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel de",
+    filtered_df_cluster["ressort_ca"].iloc[0].title(),
+    ", l’interdécile est de",
+    format_float(filtered_df_cluster["interdecile"].iloc[0]),
+    "contre",
+    format_float(
+        round(df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].interdecile.mean(), 2)
+    ),
+    "dans l’ensemble de la population française.",
+    unsafe_allow_html=True,
+)

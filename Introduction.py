@@ -37,12 +37,3 @@ st.markdown(
         - Allocation personnalisée d’autonomie (APA)
         """
 )
-
-# st.markdown(
-#     """
-#     ### Réalisation
-
-#     - Ministère de la Justice
-#     - Pôle de l'Evaluation et de la Prospective - Direction des Services Judiciaires
-#     """
-# )
