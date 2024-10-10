@@ -48,9 +48,7 @@ filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
 # -----------------------------------------------------------------------------
 
-
 st.image(constants.img_logo, width=constants.img_width)
-
 
 """
 # Démographie
@@ -91,9 +89,7 @@ if selected_genre == "Hommes" and selected_trancheage == "75 ans et plus":
     st.write("### Nombre projeté d’hommes de 75 ans ou plus d’ici 2040")
 if selected_genre == "Hommes" and selected_trancheage == "60-74 ans":
     st.write("### Nombre projeté d’hommes de 60-74 ans d’ici 2040")
-# st.write('✅')
 
-# st.write(selected_ca.append('FRANCE'))
 filtered_gdp_df = gdp_df[
     # (gdp_df['dep2'].isin(selected_countries))
     (gdp_df["ca"].isin(selected_ca))
@@ -130,21 +126,13 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 
 if selected_genre == "Femmes" and selected_trancheage == "75 ans et plus":
-    st.write(
-        "### Nombre projeté de femmes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040"
-    )
+    st.write("### Nombre projeté de femmes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040")
 if selected_genre == "Femmes" and selected_trancheage == "60-74 ans":
-    st.write(
-        "### Nombre projeté de femmes de 60-74 ans en établissement en situation de dépendance d’ici 2040"
-    )
+    st.write("### Nombre projeté de femmes de 60-74 ans en établissement en situation de dépendance d’ici 2040")
 if selected_genre == "Hommes" and selected_trancheage == "75 ans et plus":
-    st.write(
-        "### Nombre projeté d’hommes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040"
-    )
+    st.write("### Nombre projeté d’hommes de 75 ans ou plus en établissement en situation de dépendance d’ici 2040")
 if selected_genre == "Hommes" and selected_trancheage == "60-74 ans":
-    st.write(
-        "### Nombre projeté d’hommes de 60-74 ans en établissement en situation de dépendance d’ici 2040"
-    )
+    st.write("### Nombre projeté d’hommes de 60-74 ans en établissement en situation de dépendance d’ici 2040")
 
 filtered_gdp_df = filtered_gdp_df[filtered_gdp_df["annee"] <= 2040]
 
@@ -159,8 +147,6 @@ fig.update_layout(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-
-
 data_2040 = filtered_df_persagees[
     (filtered_df_persagees["CA"] == selected_ca[0])
     & (filtered_df_persagees["ANNEE"] == 2040)
@@ -171,12 +157,10 @@ data_2024 = filtered_df_persagees[
     & (filtered_df_persagees["ANNEE"] == 2024)
 ]
 
-
 def pourcentage_evolution(valeur_initiale, valeur_finale):
     evolution = valeur_finale / valeur_initiale - 1
     pourcentage = evolution * 100
     return pourcentage
-
 
 evolution = round(
     pourcentage_evolution(data_2024["value"].iloc[0], data_2040["value"].iloc[0])
@@ -194,7 +178,6 @@ if round(pourcentage_evolution(data_2024["value"].iloc[0], data_2040["value"].il
     augm2 = "+"
 else:
     augm2 = ""
-
 
 augm1 = ""
 if (

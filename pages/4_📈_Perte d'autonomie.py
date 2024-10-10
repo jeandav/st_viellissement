@@ -42,12 +42,12 @@ with st.sidebar:
 
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
-
 filtered_df_liste_ca = df_cluster[df_cluster["ressort_ca"].isin(liste_ca)]
+
+first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
 
 # -----------------------------------------------------------------------------
 
-first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
 
 st.image(constants.img_logo, width=constants.img_width)
 
