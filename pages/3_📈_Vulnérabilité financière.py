@@ -114,6 +114,8 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Revenu médian disponible: %{x}€") #
+
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -183,6 +185,8 @@ if chosen_mean:
         annotation_position=constants.line_cour_annotation_position,
         annotation_font_color=constants.line_cour_color,
     )
+
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires du minimum<br>vieillesse pour 1 000 habitants") #
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -254,6 +258,8 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Intensité de la pauvreté des personnes agées: %{x}") #
+
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -317,6 +323,8 @@ if chosen_mean:
         annotation_position=constants.line_cour_annotation_position,
         annotation_font_color=constants.line_cour_color,
     )
+
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Interdécile: %{x}") #
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 

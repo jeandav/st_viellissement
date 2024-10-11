@@ -102,6 +102,9 @@ fig.update_layout(
     margin_pad=constants.margin_pad
 )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Nombre de 60 ans et plus<br>isolés pour 100 habitants: %{x}") #
+
+
 # ========== Moyenne France ==========
 fig.add_vline(
     x=df_cluster[
@@ -178,6 +181,8 @@ fig.update_layout(
     # hovermode=False,
     margin_pad=constants.margin_pad
 )
+
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Population des 60 ans et plus<br>dans un appartement sans ascenseur<br>pour 100 habitants: %{x}") #
 
 # ========== Moyenne France ==========
 fig.add_vline(
@@ -277,6 +282,7 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Population des 60 ans et plus<br>dans un appartement avec ascenseur<br>pour 100 habitants: %{x}") #
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 

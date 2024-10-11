@@ -41,6 +41,8 @@ with st.sidebar:
         "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
     )
     """---"""
+    # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
+    # """---"""
     st.write(constants.pep_signature, unsafe_allow_html=True)
 
 jd_graph_height = select_graph_height(len(selected_ca))
@@ -258,6 +260,8 @@ fig = px.bar(
 )
 fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Indice de vieillissement",
     margin_pad=constants.margin_pad)
+
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Indice de vieillissement: %{x}") #
 
 # ========== Moyenne France ==========
 fig.add_vline(

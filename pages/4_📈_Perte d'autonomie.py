@@ -106,6 +106,8 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>à domicile pour 1&nbsp;000 habitants") #
+
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -173,6 +175,7 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>en établissement pour 1&nbsp;000 habitants") #
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -243,6 +246,8 @@ if chosen_mean:
         annotation_position=constants.line_cour_annotation_position,
         annotation_font_color=constants.line_cour_color,
     )
+
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de la<br>PCH pour 1&nbsp;000 habitants") #
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
