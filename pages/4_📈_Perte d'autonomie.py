@@ -4,6 +4,7 @@ import plotly.express as px
 
 from pages.jd_functions.jd_func import select_graph_height
 from pages.jd_functions.jd_func import format_float
+from pages.jd_functions.jd_func import is_list_in_dict
 
 import pages.jd_functions.constants as constants
 
@@ -35,8 +36,10 @@ with st.sidebar:
     selected_ca = st.multiselect(
         "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
     )
-    """---"""
-    chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
+    # """---"""
+    # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
+    chosen_mean = is_list_in_dict(cluster_options, selected_ca)
+    # st.write(chosen_mean)
     """---"""
     st.write(constants.pep_signature, unsafe_allow_html=True)
 

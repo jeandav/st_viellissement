@@ -45,3 +45,11 @@ def format_thousands(number):
     formatted_str = formatted_str.replace(".", ",")
    
     return formatted_str
+
+
+
+def is_list_in_dict(dictionary, target_list):
+    for value in dictionary.values():
+        if value == target_list:
+            return True
+    return False

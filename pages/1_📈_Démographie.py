@@ -79,7 +79,7 @@ with col2:
 
 
 # ===========================
-# MARK: Nombre projeté de seniors
+# MARK: Nombre projeté de seniors d’ici 2040
 # ===========================
 
 
@@ -123,7 +123,7 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 
 # ===========================
-# MARK: Nombre projeté de seniors
+# MARK: Nombre projeté de seniors en situation de dépendance d’ici 2040
 # ===========================
 
 
