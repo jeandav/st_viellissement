@@ -7,7 +7,6 @@ from pages.jd_functions.jd_func import format_float
 from pages.jd_functions.jd_func import format_thousands
 from pages.jd_functions.jd_func import is_list_in_dict
 
-
 import pages.jd_functions.constants as constants
 
 from pages.jd_functions.jd_func_import import get_cluster_data
