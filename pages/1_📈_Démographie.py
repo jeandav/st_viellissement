@@ -239,7 +239,7 @@ st.write(
     unsafe_allow_html=True,
 )
 
-st.markdown(":grey[Source : _Modèle LIVIA (DREES); exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _Modèle LIVIA (DREES) - exploitation PEP/DSJ_]")
 
 
 # ===========================
@@ -286,5 +286,5 @@ st.write(
     unsafe_allow_html=True,
 )
 st.markdown(
-    ":grey[Source : _Insee, Recensement de la population (RP); exploitation PEP/DSJ_]"
+    ":grey[Source : _Insee, Recensement de la population (RP) - exploitation PEP/DSJ_]"
 )

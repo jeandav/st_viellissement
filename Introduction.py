@@ -20,13 +20,13 @@ st.sidebar.success("Sélectionner une thématique ci-dessus.")
 
 st.markdown(
     """
-    Le baromètre du vieillissement compile des données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
+    Elaboré par le PEP de la DSJ, il compile les données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
 
     **👈 Sélectionnez un thème dans le volet ci-contre** pour les visualiser.
     """
 )
 
-for _ in range(3):
+for _ in range(2):
     st.markdown("")
 
 st.markdown(
@@ -38,7 +38,7 @@ st.markdown(
         - Recensement de la population (RP)
         - Dispositif sur les revenus localisés sociaux et Fiscaux (FILOSOFI)
     - DREES (Direction de la recherche, des études, de l’évaluation et des statistiques)
-        - Modèle Lieux de vie et autonomie (LIVIA) : Projections du nombre de personnes âgées de plus de 60 ans entre 2015 et 2050 et répartitions par sexe, tranche d’âge, niveau de perte d’autonomie et lieu de vie.
+        - Modèle Lieux de vie et autonomie (LIVIA) : projections du nombre de personnes âgées de plus de 60 ans entre 2015 et 2050 et répartitions par sexe, tranche d’âge, niveau de perte d’autonomie et lieu de vie.
         - Allocation personnalisée d’autonomie (APA)
         """
 )

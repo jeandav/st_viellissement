@@ -78,9 +78,9 @@ pop_options = {
 }
 selected_pop = st.selectbox("Population :", pop_options.keys())
 pop_options_verbatim = {
-    "Population globale": "le revenu disponible par unité de consommation de la population",
-    "60-74 ans": "le revenu disponible par unité de consommation des 60-74 ans",
-    "Plus de 75 ans": "le revenu disponible par unité de consommation des plus de 75 ans",
+    "Population globale": "il est de",
+    "60-74 ans": "pour les 60-74 ans, il est de",
+    "Plus de 75 ans": "pour les plus de 75 ans, il est",
 }
 fig = px.bar(
     df_rev_disp[df_rev_disp["ca"].isin(selected_ca)],
@@ -137,7 +137,7 @@ st.write(
             ].mean()
         )
     ),
-    "€ sur l’ensemble de la population française.",
+    "€ au national.",
     unsafe_allow_html=True,
 )
 
@@ -198,7 +198,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_min_vie"].iloc[0] / 100, 2)),
-    "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Sur l’ensemble de la population française, ce ratio est de",
+    "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Au niveau national, ce ratio est de",
     format_float(
         round(
             df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_min_vie.mean() / 100,
@@ -210,7 +210,7 @@ st.write(
 )
 
 st.markdown(
-    ":grey[Source : _Drees ; Insee, Estimations de population; exploitation PEP/DSJ_]"
+    ":grey[Source : _Drees - Insee, Estimations de population - exploitation PEP/DSJ_]"
 )
 
 

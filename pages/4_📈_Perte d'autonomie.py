@@ -197,7 +197,7 @@ st.write(
     "personnes sur 1&nbsp;000.",
     unsafe_allow_html=True,
 )
-st.markdown(":grey[Source : _DREES; exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
 
 
 # ===========================
@@ -266,4 +266,4 @@ st.write(
     "personnes sur 1&nbsp;000.",
     unsafe_allow_html=True,
 )
-st.markdown(":grey[Source : _DREES; exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")

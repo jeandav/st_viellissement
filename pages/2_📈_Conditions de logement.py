@@ -140,7 +140,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round((filtered_df_cluster["N_x60_ans_et_plus_isoles"].iloc[0]) / 1000,2)),
-    "personnes sur 100 sont des personnes de plus de 60 ans isolée. Sur l’ensemble de la population française, ce ratio est de ",
+    "personnes sur 100 sont des personnes de plus de 60 ans isolées. Sur l’ensemble de la population française, ce ratio est de ",
     format_float(
         round(
             df_cluster[
@@ -154,7 +154,7 @@ st.write(
     unsafe_allow_html=True,
 )
 
-st.markdown(":grey[Source : _Insee ; exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
 
 
 # ===========================
