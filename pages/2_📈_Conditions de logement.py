@@ -98,7 +98,7 @@ fig = px.bar(
 )
 
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Nombre de 60 ans et plus isolés pour 100 habitants",
     # hovermode=False,
     margin_pad=constants.margin_pad
@@ -178,7 +178,7 @@ fig = px.bar(
     text=round(df_menage_filtered["X60_ANS_ET_PLUS_APPART_SS_ASC_pop"], 2),
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100 habitants",
     # hovermode=False,
     margin_pad=constants.margin_pad
@@ -254,7 +254,7 @@ fig = px.bar(
     text=round(df_menage_filtered["X60_ANS_ET_PLUS_APPART_AV_ASC_pop"], 2),
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100 habitants",
     # hovermode=False,
     margin_pad=constants.margin_pad

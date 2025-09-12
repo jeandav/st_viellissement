@@ -91,7 +91,7 @@ fig = px.bar(
     text=pop_options[selected_pop],
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel", xaxis_title="Revenu médian disponible (€)",
+    yaxis_title="cour d'appel", xaxis_title="Revenu médian disponible (€)",
     margin_pad=constants.margin_pad
 )
 
@@ -161,7 +161,7 @@ fig = px.bar(
     text=filtered_df_cluster.N_min_vie / 100,
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants",
     margin_pad=constants.margin_pad
 )
@@ -234,7 +234,7 @@ fig = px.bar(
     text=round(df_intens_pauv[df_intens_pauv["ca"].isin(selected_ca)].intens_pauv, 2),
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Intensité de la pauvreté des personnes agées",
     margin_pad=constants.margin_pad
 )
@@ -302,7 +302,7 @@ fig = px.bar(
     height=jd_graph_height,
     text="interdecile",
 )
-fig.update_layout(yaxis_title="Cour d'appel", xaxis_title="Interdécile",
+fig.update_layout(yaxis_title="cour d'appel", xaxis_title="Interdécile",
     margin_pad=constants.margin_pad)
 
 # ========== Moyenne France ==========

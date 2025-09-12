@@ -81,7 +81,7 @@ fig = px.bar(
     text=filtered_df_cluster.N_apa_dom / 100,
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 1&nbsp;000 habitants",
     margin_pad=constants.margin_pad
 )
@@ -151,7 +151,7 @@ fig = px.bar(
     text=filtered_df_cluster.N_apa_etab / 100,
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 1&nbsp;000 habitants",
     margin_pad=constants.margin_pad
 )
@@ -223,7 +223,7 @@ fig = px.bar(
     text=filtered_df_cluster.N_pch / 100,
 )
 fig.update_layout(
-    yaxis_title="Cour d'appel",
+    yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de la PCH pour 1&nbsp;000 habitants",
     margin_pad=constants.margin_pad
 )

@@ -14,13 +14,13 @@ st.set_page_config(
 
 st.image(constants.img_logo, width=constants.img_width)
 
-st.write("# Tableau de bord du vieillissement démographique")
+st.write("# Baromètre du vieillissement démographique")
 
 st.sidebar.success("Sélectionner une thématique ci-dessus.")
 
 st.markdown(
     """
-    Le tableau de bord du vieillissement compile des données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
+    Le baromètre du vieillissement compile des données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
 
     **👈 Sélectionnez un thème dans le volet ci-contre** pour les visualiser.
     """
