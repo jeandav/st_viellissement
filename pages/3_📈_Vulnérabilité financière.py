@@ -296,7 +296,6 @@ st.markdown(
 )
 st.info("L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle générale fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite \"intense\".", icon='📌')
 
-
 # ===========================
 # MARK: Interdécile
 # ===========================

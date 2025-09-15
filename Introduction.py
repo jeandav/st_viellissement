@@ -26,7 +26,7 @@ st.markdown(
     """
 )
 
-for _ in range(1):
+for _ in range(0):
     st.markdown("")
 
 st.markdown(
@@ -43,7 +43,7 @@ st.markdown(
         """
 )
 
-for _ in range(1):
+for _ in range(0):
     st.markdown("")
 
 st.markdown(

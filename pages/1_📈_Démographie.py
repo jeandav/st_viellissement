@@ -120,6 +120,18 @@ fig.update_layout(
 )
 fig.update_traces(hovertemplate=None)
 fig.update_layout(hovermode=False)
+fig.update_layout(
+    xaxis=dict(
+        showline=True,
+        linecolor='lightgrey',
+        linewidth=1
+        ),
+    yaxis=dict(
+        showline=True,
+        linecolor='lightgrey',
+        linewidth=1
+        ),
+)
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -151,7 +163,18 @@ fig.update_layout(
 )
 fig.update_traces(hovertemplate=None)
 fig.update_layout(hovermode=False)
-
+fig.update_layout(
+    xaxis=dict(
+        showline=True,
+        linecolor='lightgrey',
+        linewidth=1
+        ),
+    yaxis=dict(
+        showline=True,
+        linecolor='lightgrey',
+        linewidth=1
+        ),
+)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 data_2040 = filtered_df_persagees[
