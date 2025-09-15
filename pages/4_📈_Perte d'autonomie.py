@@ -111,6 +111,8 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>à domicile pour 1&nbsp;000 habitants") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -118,7 +120,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_dom"].iloc[0] / 100, 2)),
-    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de",
+    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
         round(
             filtered_df_liste_ca.N_apa_dom.mean() / 100,
@@ -180,6 +182,8 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>en établissement pour 1&nbsp;000 habitants") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -187,7 +191,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_etab"].iloc[0] / 100, 2)),
-    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA (Allocation personnalisée d’autonomie) <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de",
+    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
         round(
             filtered_df_liste_ca.N_apa_etab.mean() / 100,
@@ -252,6 +256,8 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de la<br>PCH pour 1&nbsp;000 habitants") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -259,7 +265,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_pch"].iloc[0] / 100, 2)),
-    "personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH (Prestation de compensation du handicap). Sur l’ensemble de la population française, ce ratio est de",
+    "personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH. Sur l’ensemble de la population française, ce ratio est de",
     format_float(
         round(filtered_df_liste_ca.N_pch.mean() / 100, 2)
     ),

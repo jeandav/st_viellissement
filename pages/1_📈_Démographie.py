@@ -118,6 +118,8 @@ fig.update_layout(
     # margin_pad=constants.margin_pad,
     hovermode="x unified"
 )
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -147,6 +149,9 @@ fig.update_layout(
     # margin_pad=constants.margin_pad,
     hovermode="x unified",
 )
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
+
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 data_2040 = filtered_df_persagees[
@@ -197,18 +202,20 @@ else:
 
 
 # ========== Note de lecture ==========
+
 st.write(
-    "<b><u>Note de lecture :</b></u> En 2040, la DRESS estime à près de ",
-    format_thousands(int(data_2040["value"].iloc[0])),
-    " ",
+    "<b><u>Note de lecture :</b></u> La DRESS projette le nombre de",
     data_2040["SEXE"].iloc[0].lower(),
     " de ",
     data_2040["TRANCHAGE"].iloc[0].lower(),
+    "",
     " au sein du ressort de la cour d’appel de ",
-    data_2040["CA"].iloc[0].title() + ",",
-    " contre ",
+    data_2040["CA"].iloc[0].title(),
+    ", qui s'élève à ",
     format_thousands(int(data_2024["value"].iloc[0])),
-    " en 2024, soit une évolution de ",
+    " en 2024, à ",
+    format_thousands(int(data_2040["value"].iloc[0])),
+    " en 2040, soit une évolution de ",
     augm2,
     format_float(
         round(
@@ -221,11 +228,11 @@ st.write(
     data_2024_dep["genre"].iloc[0].lower(),
     "de ",
     data_2040["TRANCHAGE"].iloc[0].lower(),
-    " en établissement en situation de dépendance, le total est de ",
+    " en établissement en situation de dépendance, l'évolution projetée est de ",
     format_thousands(data_2024_dep["nb_proj_seniors"].iloc[0]),
-    " en 2024 contre ",
+    " en 2024 à ",
     format_thousands(data_2040_dep["nb_proj_seniors"].iloc[0]),
-    " en 2040, ce qui représente",
+    " en 2040, soit ",
     augm1,
     format_float(
         round(
@@ -271,6 +278,8 @@ fig.add_vline(
     annotation_text=constants.line_france_text,
     annotation_position=constants.line_france_annotation_position,
 )
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
@@ -278,7 +287,7 @@ data_iv = filtered_df_cluster[filtered_df_cluster["ressort_ca"] == selected_ca[0
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé, plus il est favorable aux personnes âgées. Par exemple, au sein du ressort de la cour d’appel de",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
     data_2040["CA"].iloc[0].title() + ", ",
     "on dénombre ",
     format_float(data_iv["ind_vie"].iloc[0]),
@@ -288,3 +297,4 @@ st.write(
 st.markdown(
     ":grey[Source : _Insee, Recensement de la population (RP) - exploitation PEP/DSJ_]"
 )
+st.info("L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé, plus il est favorable aux personnes âgées.", icon='📌')

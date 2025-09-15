@@ -1,4 +1,4 @@
-config_page_title='Evolution du vieillissement'
+config_page_title='Baromètre du vieillissement démographique'
 config_page_icon=':chart_with_upwards_trend:'
 config_layout='centered'
 

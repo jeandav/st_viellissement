@@ -119,6 +119,8 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Revenu médian disponible: %{x}€") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -140,6 +142,8 @@ st.write(
     "€ au national.",
     unsafe_allow_html=True,
 )
+
+st.info("Le revenu disponible par unité de consommation (UC), également appelé 'niveau de vie', est le revenu disponible par 'équivalent adulte'. Il est calculé en rapportant le revenu disponible du ménage au nombre d'unités de consommation qui le composent. Toutes les personnes rattachées au même ménage fiscal ont le même revenu disponible par UC (ou niveau de vie).", icon='📌')
 
 # ===========================
 # MARK: Bénéficiaires du minimum vieillesse
@@ -191,6 +195,8 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires du minimum<br>vieillesse pour 1 000 habitants") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -210,7 +216,7 @@ st.write(
 )
 
 st.markdown(
-    ":grey[Source : _Drees - Insee, Estimations de population - exploitation PEP/DSJ_]"
+    ":grey[Source : _DREES - Insee, Estimations de population - exploitation PEP/DSJ_]"
 )
 
 
@@ -263,11 +269,13 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Intensité de la pauvreté des personnes agées: %{x}") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    '<b><u>Note de lecture :</b></u> L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle général fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite "intense". Au sein du ressort de la cour d’appel ',
+    '<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ',
     constants.noms_apostrophe[first_ca],
     ", ce seuil est de ",
     format_float(
@@ -283,6 +291,10 @@ st.write(
     "dans l’ensemble de la population française.",
     unsafe_allow_html=True,
 )
+st.markdown(
+    ":grey[Source : _Insee - exploitation PEP/DSJ_]"
+)
+st.info("L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle générale fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite \"intense\".", icon='📌')
 
 
 # ===========================
@@ -329,11 +341,13 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Interdécile: %{x}") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes. Au sein du ressort de la d’appel ",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la d’appel ",
     constants.noms_apostrophe[first_ca],
     ", l’interdécile est de",
     format_float(filtered_df_cluster["interdecile"].iloc[0]),
@@ -344,3 +358,7 @@ st.write(
     "dans l’ensemble de la population française.",
     unsafe_allow_html=True,
 )
+st.markdown(
+    ":grey[Source : _Insee - exploitation PEP/DSJ_]"
+)
+st.info("L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes.", icon='📌')

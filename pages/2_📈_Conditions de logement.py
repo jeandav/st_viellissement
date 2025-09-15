@@ -133,6 +133,8 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -210,7 +212,10 @@ if chosen_mean:
         annotation_font_color=constants.line_cour_color,
     )
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+
 
 # ========== Note de lecture ==========
 st.write(
@@ -286,7 +291,10 @@ if chosen_mean:
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Population des 60 ans et plus<br>dans un appartement avec ascenseur<br>pour 100 habitants: %{x}") #
 
+fig.update_traces(hovertemplate=None)
+fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+
 
 # ========== Note de lecture ==========
 st.write(
