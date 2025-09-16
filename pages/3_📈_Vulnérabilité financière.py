@@ -144,7 +144,7 @@ st.write(
 )
 
 st.info("Le revenu disponible par unité de consommation (UC), également appelé 'niveau de vie', est le revenu disponible par 'équivalent adulte'. Il est calculé en rapportant le revenu disponible du ménage au nombre d'unités de consommation qui le composent. Toutes les personnes rattachées au même ménage fiscal ont le même revenu disponible par UC (ou niveau de vie).", icon='📌')
-
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
 # ===========================
 # MARK: Bénéficiaires du minimum vieillesse
 # ===========================
@@ -204,14 +204,14 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_min_vie"].iloc[0] / 100, 2)),
-    "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse. Au niveau national, ce ratio est de",
+    "personnes sur 1&nbsp;000 bénéficient du minimum vieillesse, contre ",
     format_float(
         round(
             df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].N_min_vie.mean() / 100,
             2,
         )
     ),
-    "personnes sur 1&nbsp;000.",
+    "personnes sur 1&nbsp;000 au national.",
     unsafe_allow_html=True,
 )
 
@@ -288,13 +288,11 @@ st.write(
     format_float(
         round(df_intens_pauv[df_intens_pauv["ca"].isin(liste_ca)].intens_pauv.mean(), 2)
     ),
-    "dans l’ensemble de la population française.",
+    "au&nbsp;national.",
     unsafe_allow_html=True,
 )
-st.markdown(
-    ":grey[Source : _Insee - exploitation PEP/DSJ_]"
-)
 st.info("L’intensité de la pauvreté est définie comme étant l’écart relatif entre le revenu moyen des personnes pauvres et le seuil de pauvreté. En France, le seuil est en règle générale fixé à 60% du niveau de vie médian. Plus cet indicateur est élevé et plus la pauvreté est dite \"intense\".", icon='📌')
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
 
 # ===========================
 # MARK: Interdécile
@@ -350,14 +348,12 @@ st.write(
     constants.noms_apostrophe[first_ca],
     ", l’interdécile est de",
     format_float(filtered_df_cluster["interdecile"].iloc[0]),
-    "contre",
+    ", contre",
     format_float(
         round(df_cluster[df_cluster["ressort_ca"].isin(liste_ca)].interdecile.mean(), 2)
     ),
-    "dans l’ensemble de la population française.",
+    "au&nbsp;national.",
     unsafe_allow_html=True,
 )
-st.markdown(
-    ":grey[Source : _Insee - exploitation PEP/DSJ_]"
-)
 st.info("L’interdécile est une mesure de l’inégalité des revenus. Il rapporte le niveau de vie minimum des 10% les plus riches au niveau de vie maximum des 10% les plus modestes.", icon='📌')
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")

@@ -142,7 +142,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round((filtered_df_cluster["N_x60_ans_et_plus_isoles"].iloc[0]) / 1000,2)),
-    "personnes sur 100 sont des personnes de plus de 60 ans isolées. Sur l’ensemble de la population française, ce ratio est de ",
+    "personnes sur 100 sont des personnes de plus de 60 ans isolées, contre ",
     format_float(
         round(
             df_cluster[
@@ -152,7 +152,7 @@ st.write(
             2,
         )
     ),
-    "personnes sur 100.",
+    "personnes sur 100 au national.",
     unsafe_allow_html=True,
 )
 
@@ -224,7 +224,7 @@ st.write(
     format_float(
         round(df_menage_filtered["X60_ANS_ET_PLUS_APPART_SS_ASC_pop"].iloc[0], 2)
     ),
-    "personnes sur 100 sont des personnes âgées vivant dans un appartement <i>sans ascenceur</i>. Sur l’ensemble de la population française, ce ratio est de",
+    "personnes sur 100 sont des personnes âgées vivant dans un appartement <i>sans ascenceur</i>, contre ",
     format_float(
         round(
             df_menage[
@@ -233,11 +233,11 @@ st.write(
             2,
         )
     ),
-    "personnes sur 100.",
+    "personnes sur 100 au national.",
     unsafe_allow_html=True,
 )
 
-st.markdown(":grey[Source : _Insee; exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
 
 # ===========================
 # MARK: Population des 60 ans et plus dans un appartement avec ascenseur
@@ -303,7 +303,7 @@ st.write(
     format_float(
         round(df_menage_filtered[df_menage_filtered["CA"] == first_ca].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.iloc[0], 2)
     ),
-    "personnes sur 100 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>. Sur l’ensemble de la population française, ce ratio est de",
+    "personnes sur 100 sont des personnes âgées vivant dans un appartement <i>avec ascenceur</i>, contre ",
     format_float(
         round(
             df_menage[
@@ -312,8 +312,8 @@ st.write(
             2,
         )
     ),
-    "personnes sur 100.",
+    "personnes sur 100 au national.",
     unsafe_allow_html=True,
 )
 
-st.markdown(":grey[Source : _Insee; exploitation PEP/DSJ_]")
+st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")

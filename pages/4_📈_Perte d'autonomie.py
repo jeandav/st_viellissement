@@ -120,14 +120,14 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_dom"].iloc[0] / 100, 2)),
-    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>à domicile</i>. Sur l’ensemble de la population française, ce ratio est de",
+    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>à domicile</i>, contre ",
     format_float(
         round(
             filtered_df_liste_ca.N_apa_dom.mean() / 100,
             2,
         )
     ),
-    "personnes sur 1&nbsp;000.",
+    "personnes sur 1&nbsp;000 au national.",
     unsafe_allow_html=True,
 )
 
@@ -191,14 +191,14 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_apa_etab"].iloc[0] / 100, 2)),
-    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>en établissement</i>. Sur l’ensemble de la population française, ce ratio est de",
+    " personnes sur 1&nbsp;000 sont bénéficiaires de l’APA <i>en établissement</i>, contre ",
     format_float(
         round(
             filtered_df_liste_ca.N_apa_etab.mean() / 100,
             2,
         )
     ),
-    "personnes sur 1&nbsp;000.",
+    "personnes sur 1&nbsp;000 au national.",
     unsafe_allow_html=True,
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
@@ -265,11 +265,11 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round(filtered_df_cluster["N_pch"].iloc[0] / 100, 2)),
-    "personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH. Sur l’ensemble de la population française, ce ratio est de",
+    "personnes sur 1&nbsp;000 de 60 ans ou plus est bénéficiaire de la PCH, contre ",
     format_float(
         round(filtered_df_liste_ca.N_pch.mean() / 100, 2)
     ),
-    "personnes sur 1&nbsp;000.",
+    "personnes sur 1&nbsp;000 au national.",
     unsafe_allow_html=True,
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
