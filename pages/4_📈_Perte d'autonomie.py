@@ -29,12 +29,12 @@ liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
     cluster_options = constants.cluster_options
-    chosen_cluster = st.radio(
-        "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
-    )
-    """---"""
+    # chosen_cluster = st.radio(
+    #     "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
+    # )
+    # """---"""
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
+        "Choix de la cour d'appel :", liste_ca, cluster_options['Groupe D']
     )
     # """---"""
     # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
@@ -54,9 +54,9 @@ first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
 
 st.image(constants.img_logo, width=constants.img_width)
 
+st.title("Perte d'autonomie", anchor=False)
 
 """
-# Perte d'autonomie
 ---
 """
 # ===========================
@@ -96,18 +96,18 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].N_apa_dom.mean()
-        / 100,
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].N_apa_dom.mean()
+#         / 100,
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>à domicile pour 1&nbsp;000 habitants") #
 
@@ -167,18 +167,18 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].N_apa_etab.mean()
-        / 100,
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].N_apa_etab.mean()
+#         / 100,
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de l'APA<br>en établissement pour 1&nbsp;000 habitants") #
 
@@ -202,6 +202,7 @@ st.write(
     unsafe_allow_html=True,
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
+st.info("L'APA est une aide financière française destinée aux personnes âgées de 60 ans ou plus en perte d'autonomie. Elle est gérée et versée par le Conseil départemental et a pour objectif de financer les dépenses nécessaires pour aider la personne à continuer à vivre à son domicile ou à prendre en charge une partie du coût de l'hébergement en établissement.", icon='📌')
 
 
 # ===========================
@@ -241,18 +242,18 @@ fig.add_vline(
     annotation_position=constants.line_france_annotation_position,
 )
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].N_pch.mean()
-        / 100,
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].N_pch.mean()
+#         / 100,
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires de la<br>PCH pour 1&nbsp;000 habitants") #
 
@@ -273,3 +274,5 @@ st.write(
     unsafe_allow_html=True,
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
+
+st.info("La PCH est une aide financière française gérée par le Conseil départemental, qui a pour but de financer les besoins liés à la perte d'autonomie dans la vie quotidienne. Contrairement à l'APA qui s'adresse principalement aux personnes âgées, la PCH est destinée aux personnes en situation de handicap, quel que soit leur âge.", icon='📌')

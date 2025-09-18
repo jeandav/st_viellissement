@@ -33,12 +33,12 @@ liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
     cluster_options = constants.cluster_options
-    chosen_cluster = st.radio(
-        "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
-    )
-    """---"""
+    # chosen_cluster = st.radio(
+    #     "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
+    # )
+    # """---"""
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
+        "Choix de la cour d'appel :", liste_ca, cluster_options['Groupe D']
     )
     """---"""
     # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
@@ -52,8 +52,9 @@ filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
 
 st.image(constants.img_logo, width=constants.img_width)
 
+st.title("Démographie", anchor=False)
+
 """
-# Démographie
 ---
 """
 
@@ -227,16 +228,14 @@ else:
 # ========== Note de lecture ==========
 
 st.write(
-    "<b><u>Note de lecture :</b></u> La DRESS projette le nombre de",
+    "<b><u>Note de lecture :</b></u> La DREES projette le nombre de",
     data_2040["SEXE"].iloc[0].lower(),
     " de ",
     data_2040["TRANCHAGE"].iloc[0].lower(),
     "",
     " au sein du ressort de la cour d’appel de ",
     data_2040["CA"].iloc[0].title(),
-    ", qui s'élève à ",
-    format_thousands(int(data_2024["value"].iloc[0])),
-    " en 2024, à ",
+    " à ",
     format_thousands(int(data_2040["value"].iloc[0])),
     " en 2040, soit une évolution de ",
     augm2,
@@ -247,15 +246,11 @@ st.write(
             )
         )
     ),
-    "%. S’agissant des ",
+    "% par rapport à 2024. S’agissant des ",
     data_2024_dep["genre"].iloc[0].lower(),
     "de ",
     data_2040["TRANCHAGE"].iloc[0].lower(),
-    " en établissement en situation de dépendance, l'évolution projetée est de ",
-    format_thousands(data_2024_dep["nb_proj_seniors"].iloc[0]),
-    " en 2024 à ",
-    format_thousands(data_2040_dep["nb_proj_seniors"].iloc[0]),
-    " en 2040, soit ",
+    " en établissement en situation de dépendance, l'évolution projetée est, sur la même période, de ",
     augm1,
     format_float(
         round(
@@ -312,7 +307,7 @@ data_iv = filtered_df_cluster[filtered_df_cluster["ressort_ca"] == selected_ca[0
 st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
     data_2040["CA"].iloc[0].title() + ", ",
-    "on dénombre ",
+    "on compte ",
     format_float(data_iv["ind_vie"].iloc[0]),
     " personnes de plus de 65 ans pour 100 jeunes de moins de 20 ans, en regard d’un indice de 86 au niveau national.",
     unsafe_allow_html=True,
@@ -320,4 +315,4 @@ st.write(
 st.markdown(
     ":grey[Source : _Insee, Recensement de la population (RP) - exploitation PEP/DSJ_]"
 )
-st.info("L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes; plus il est élevé, plus il est favorable aux personnes âgées.", icon='📌')
+st.info("L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes ; plus il est élevé, plus il est favorable aux personnes âgées.", icon='📌')

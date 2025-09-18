@@ -48,12 +48,12 @@ liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
     cluster_options = constants.cluster_options
-    chosen_cluster = st.radio(
-        "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
-    )
-    """---"""
+    # chosen_cluster = st.radio(
+    #     "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
+    # )
+    # """---"""
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
+        "Choix de la cour d'appel :", liste_ca, cluster_options['Groupe D']
     )
     # """---"""
     # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
@@ -73,10 +73,7 @@ first_ca = df_menage_filtered["CA"].iloc[0]
 
 st.image(constants.img_logo, width=constants.img_width)
 
-
-"""
-# Conditions de logement
-"""
+st.title("Conditions de logement", anchor=False)
 
 # ===========================
 # MARK: Population des 60 ans et plus isolés
@@ -120,18 +117,18 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].N_x60_ans_et_plus_isoles.mean()
-        / 1000,
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].N_x60_ans_et_plus_isoles.mean()
+#         / 1000,
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate=None)
 fig.update_layout(hovermode=False)
@@ -142,7 +139,7 @@ st.write(
     "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
     constants.noms_apostrophe[first_ca] + ",",
     format_float(round((filtered_df_cluster["N_x60_ans_et_plus_isoles"].iloc[0]) / 1000,2)),
-    "personnes sur 100 sont des personnes de plus de 60 ans isolées, contre ",
+    "personnes sur 100 sont des personnes de plus de 60 ans en situation d'isolement, contre ",
     format_float(
         round(
             df_cluster[
@@ -157,6 +154,7 @@ st.write(
 )
 
 st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
+st.info("L'INSEE définit l'isolement comme le fait d'avoir au maximum une rencontre physique ou un contact distant par mois avec son réseau social", icon='📌')
 
 
 # ===========================
@@ -200,17 +198,17 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_menage[
-            df_menage["CA"].isin(cluster_options[chosen_cluster])
-        ].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(),
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_menage[
+#             df_menage["CA"].isin(cluster_options[chosen_cluster])
+#         ].X60_ANS_ET_PLUS_APPART_SS_ASC_pop.mean(),
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate=None)
 fig.update_layout(hovermode=False)
@@ -277,17 +275,17 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_menage[
-            df_menage["CA"].isin(cluster_options[chosen_cluster])
-        ].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(),
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_menage[
+#             df_menage["CA"].isin(cluster_options[chosen_cluster])
+#         ].X60_ANS_ET_PLUS_APPART_AV_ASC_pop.mean(),
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Population des 60 ans et plus<br>dans un appartement avec ascenseur<br>pour 100 habitants: %{x}") #
 

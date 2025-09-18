@@ -34,12 +34,12 @@ liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
     cluster_options = constants.cluster_options
-    chosen_cluster = st.radio(
-        "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
-    )
-    """---"""
+    # chosen_cluster = st.radio(
+    #     "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
+    # )
+    # """---"""
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", liste_ca, cluster_options[chosen_cluster]
+        "Choix de la cour d'appel :", liste_ca, cluster_options['Groupe D']
     )
     # """---"""
     # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
@@ -57,9 +57,7 @@ first_ca = filtered_df_cluster["ressort_ca"].iloc[0]
 
 st.image(constants.img_logo, width=constants.img_width)
 
-"""
-# Vulnérabilité financière
-"""
+st.title("Vulnérabilité financière", anchor=False)
 
 # ===========================
 # MARK: Médiane du revenu disponible par unité de consommation
@@ -78,9 +76,9 @@ pop_options = {
 }
 selected_pop = st.selectbox("Population :", pop_options.keys())
 pop_options_verbatim = {
-    "Population globale": "il est de",
-    "60-74 ans": "pour les 60-74 ans, il est de",
-    "Plus de 75 ans": "pour les plus de 75 ans, il est",
+    "Population globale": "le revenu disponible par unité de consommation est de",
+    "60-74 ans": "pour les 60-74 ans, le revenu disponible par unité de consommation est de",
+    "Plus de 75 ans": "pour les plus de 75 ans, le revenu disponible par unité de consommation est de",
 }
 fig = px.bar(
     df_rev_disp[df_rev_disp["ca"].isin(selected_ca)],
@@ -105,17 +103,17 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_rev_disp[df_rev_disp["ca"].isin(cluster_options[chosen_cluster])][
-            pop_options[selected_pop]
-        ].mean(),
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_rev_disp[df_rev_disp["ca"].isin(cluster_options[chosen_cluster])][
+#             pop_options[selected_pop]
+#         ].mean(),
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Revenu médian disponible: %{x}€") #
 
@@ -126,10 +124,9 @@ st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 # ========== Note de lecture ==========
 data_med_disp = df_rev_disp[df_rev_disp["ca"] == selected_ca[0]]
 st.write(
-    "<b><u>Note de lecture : </b></u>Le revenu disponible par unité de consommation correspond au niveau de vie d’un ménage. Au sein du ressort de la cour d’appel de ",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de ",
     data_med_disp["ca"].iloc[0].title() + ",",
     pop_options_verbatim[selected_pop],
-    "est de ",
     format_thousands(round(data_med_disp[pop_options[selected_pop]].iloc[0])),
     "€, contre ",
     format_thousands(
@@ -143,7 +140,7 @@ st.write(
     unsafe_allow_html=True,
 )
 
-st.info("Le revenu disponible par unité de consommation (UC), également appelé 'niveau de vie', est le revenu disponible par 'équivalent adulte'. Il est calculé en rapportant le revenu disponible du ménage au nombre d'unités de consommation qui le composent. Toutes les personnes rattachées au même ménage fiscal ont le même revenu disponible par UC (ou niveau de vie).", icon='📌')
+st.info("Le revenu disponible par unité de consommation (UC), également appelé 'niveau de vie', est le revenu disponible par 'équivalent adulte'. Il est calculé en rapportant le revenu disponible du ménage au nombre d'unités de consommation qui le composent. Toutes les personnes rattachées au même ménage fiscal ont le même revenu disponible.", icon='📌')
 st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
 # ===========================
 # MARK: Bénéficiaires du minimum vieillesse
@@ -180,18 +177,18 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].N_min_vie.mean()
-        / 100,
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].N_min_vie.mean()
+#         / 100,
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires du minimum<br>vieillesse pour 1 000 habitants") #
 
@@ -214,6 +211,7 @@ st.write(
     "personnes sur 1&nbsp;000 au national.",
     unsafe_allow_html=True,
 )
+st.info("Le minimum vieillesse est une aide financière destinée à garantir un revenu minimal aux personnes âgées qui ont peu ou pas de revenus une fois à la retraite.", icon='📌')
 
 st.markdown(
     ":grey[Source : _DREES - Insee, Estimations de population - exploitation PEP/DSJ_]"
@@ -255,17 +253,17 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_intens_pauv[
-            df_intens_pauv["ca"].isin(cluster_options[chosen_cluster])
-        ].intens_pauv.mean(),
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_intens_pauv[
+#             df_intens_pauv["ca"].isin(cluster_options[chosen_cluster])
+#         ].intens_pauv.mean(),
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Intensité de la pauvreté des personnes agées: %{x}") #
 
@@ -324,17 +322,17 @@ fig.add_vline(
 )
 
 # ========== Moyenne cour ==========
-if chosen_mean:
-    fig.add_vline(
-        x=df_cluster[
-            df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
-        ].interdecile.mean(),
-        line_width=constants.line_cour_width,
-        line_color=constants.line_cour_color,
-        annotation_text=chosen_cluster,
-        annotation_position=constants.line_cour_annotation_position,
-        annotation_font_color=constants.line_cour_color,
-    )
+# if chosen_mean:
+#     fig.add_vline(
+#         x=df_cluster[
+#             df_cluster["ressort_ca"].isin(cluster_options[chosen_cluster])
+#         ].interdecile.mean(),
+#         line_width=constants.line_cour_width,
+#         line_color=constants.line_cour_color,
+#         annotation_text=chosen_cluster,
+#         annotation_position=constants.line_cour_annotation_position,
+#         annotation_font_color=constants.line_cour_color,
+#     )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Interdécile: %{x}") #
 
