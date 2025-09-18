@@ -19,6 +19,9 @@ st.set_page_config(
     layout=constants.config_layout,
 )
 
+# Remove anchors
+st.html("<style>[data-testid='stHeaderActionElements'] {display: none;}</style>")
+
 # -----------------------------------------------------------------------------
 
 df_cluster = get_cluster_data()
@@ -202,7 +205,7 @@ st.write(
     unsafe_allow_html=True,
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
-st.info("L'APA est une aide financière française destinée aux personnes âgées de 60 ans ou plus en perte d'autonomie. Elle est gérée et versée par le Conseil départemental et a pour objectif de financer les dépenses nécessaires pour aider la personne à continuer à vivre à son domicile ou à prendre en charge une partie du coût de l'hébergement en établissement.", icon='📌')
+st.info("L'APA (Allocation personnalisée d'autonomie) est une aide financière française destinée aux personnes âgées de 60 ans ou plus en perte d'autonomie. Elle est gérée et versée par le Conseil départemental et a pour objectif de financer les dépenses nécessaires pour aider la personne à continuer à vivre à son domicile ou à prendre en charge une partie du coût de l'hébergement en établissement.", icon='📌')
 
 
 # ===========================
@@ -275,4 +278,4 @@ st.write(
 )
 st.markdown(":grey[Source : _DREES - exploitation PEP/DSJ_]")
 
-st.info("La PCH est une aide financière française gérée par le Conseil départemental, qui a pour but de financer les besoins liés à la perte d'autonomie dans la vie quotidienne. Contrairement à l'APA qui s'adresse principalement aux personnes âgées, la PCH est destinée aux personnes en situation de handicap, quel que soit leur âge.", icon='📌')
+st.info("La PCH (Prestation de compensation du handicap) est une aide financière française gérée par le Conseil départemental, qui a pour but de financer les besoins liés à la perte d'autonomie dans la vie quotidienne. Contrairement à l'APA qui s'adresse principalement aux personnes âgées, la PCH est destinée aux personnes en situation de handicap, quel que soit leur âge.", icon='📌')

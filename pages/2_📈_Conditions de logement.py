@@ -22,6 +22,9 @@ st.set_page_config(
     layout=constants.config_layout,
 )
 
+# Remove anchors
+st.html("<style>[data-testid='stHeaderActionElements'] {display: none;}</style>")
+
 # -----------------------------------------------------------------------------
 
 df_cluster = get_cluster_data()
@@ -154,7 +157,7 @@ st.write(
 )
 
 st.markdown(":grey[Source : _Insee - exploitation PEP/DSJ_]")
-st.info("L'INSEE définit l'isolement comme le fait d'avoir au maximum une rencontre physique ou un contact distant par mois avec son réseau social", icon='📌')
+st.info("L'INSEE définit l'isolement comme le fait d'avoir au maximum une rencontre physique ou un contact distant par mois avec son réseau social.", icon='📌')
 
 
 # ===========================

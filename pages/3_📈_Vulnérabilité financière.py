@@ -22,6 +22,9 @@ st.set_page_config(
     layout=constants.config_layout,
 )
 
+# Remove anchors
+st.html("<style>[data-testid='stHeaderActionElements'] {display: none;}</style>")
+
 # -----------------------------------------------------------------------------
 
 df_cluster = get_cluster_data()
