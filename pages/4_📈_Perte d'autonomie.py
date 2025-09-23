@@ -31,19 +31,19 @@ df_cluster = get_cluster_data()
 liste_ca = df_cluster["ressort_ca"].unique()
 
 with st.sidebar:
-    cluster_options = constants.cluster_options
-    # chosen_cluster = st.radio(
-    #     "Choix du groupe :", cluster_options.keys(), horizontal=True, index=3
-    # )
-    # """---"""
+    if 'selected_ca' not in st.session_state:
+        st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
+
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", liste_ca, cluster_options['Groupe D']
+        "Choix de la cour d'appel :", 
+        liste_ca, 
+        default=st.session_state.selected_ca
     )
-    # """---"""
-    # chosen_mean = st.checkbox("Afficher la moyenne du groupe", True)
-    chosen_mean = is_list_in_dict(cluster_options, selected_ca)
-    # st.write(chosen_mean)
-    """---"""
+
+    st.session_state.selected_ca = selected_ca
+
+    # st.write(st.session_state.selected_ca)
+    st.markdown("---")
     st.write(constants.pep_signature, unsafe_allow_html=True)
 
 jd_graph_height = select_graph_height(len(selected_ca))
