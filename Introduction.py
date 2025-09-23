@@ -20,7 +20,7 @@ st.sidebar.success("Sélectionner une thématique ci-dessus.")
 
 st.markdown(
     """
-    Elaboré par le PEP/DSJ, le présent document compile les données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
+    Élaboré par le PEP/DSJ, le présent document compile les données publiques à l'échelle des ressorts des cours d'appel sur le territoire français.
 
     **👈 Sélectionnez une thématique dans le volet ci-contre.**
     """
