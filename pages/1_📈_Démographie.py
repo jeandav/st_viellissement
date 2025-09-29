@@ -239,8 +239,8 @@ st.write(
     " de ",
     data_2040["TRANCHAGE"].iloc[0].lower(),
     "",
-    " au sein du ressort de la cour d’appel de ",
-    data_2040["CA"].iloc[0].title(),
+    " au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[data_2040["CA"].iloc[0]],
     " à ",
     format_thousands(int(data_2040["value"].iloc[0])),
     " en 2040, soit une évolution de ",
@@ -311,8 +311,8 @@ data_iv = filtered_df_cluster[filtered_df_cluster["ressort_ca"] == selected_ca[0
 
 # ========== Note de lecture ==========
 st.write(
-    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel de",
-    data_2040["CA"].iloc[0].title() + ", ",
+    "<b><u>Note de lecture :</b></u> Au sein du ressort de la cour d’appel ",
+    constants.noms_apostrophe[data_2040["CA"].iloc[0]] + ", ",
     "on compte ",
     format_float(data_iv["ind_vie"].iloc[0]),
     " personnes de plus de 65 ans pour 100 jeunes de moins de 20 ans, en regard d’un indice de 86 au niveau national.",
@@ -322,3 +322,4 @@ st.markdown(
     ":grey[Source : _Insee, Recensement de la population (RP) - exploitation PEP/DSJ_]"
 )
 st.info("L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes ; plus il est élevé, plus il est favorable aux personnes âgées.", icon='📌')
+
