@@ -223,7 +223,6 @@ st.write(
     unsafe_allow_html=True,
 )
 
-
 fig = px.bar(
     filtered_df_cluster,
     x=filtered_df_cluster.N_pch / 100,

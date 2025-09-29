@@ -13,7 +13,6 @@ from pages.jd_functions.jd_func_import import get_cluster_data
 from pages.jd_functions.jd_func_import import get_menage_data
 from pages.jd_functions.jd_func_import import get_popglobale_data
 
-
 # -----------------------------------------------------------------------------
 
 st.set_page_config(

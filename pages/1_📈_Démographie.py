@@ -12,7 +12,6 @@ from pages.jd_functions.jd_func_import import get_cluster_data
 from pages.jd_functions.jd_func_import import get_gdp_data
 from pages.jd_functions.jd_func_import import get_persagees_data
 
-
 # -----------------------------------------------------------------------------
 
 st.set_page_config(

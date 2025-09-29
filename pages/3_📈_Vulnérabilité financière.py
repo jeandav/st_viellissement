@@ -13,7 +13,6 @@ from pages.jd_functions.jd_func_import import get_cluster_data
 from pages.jd_functions.jd_func_import import get_intens_pauv_data
 from pages.jd_functions.jd_func_import import get_rev_disp_data
 
-
 # -----------------------------------------------------------------------------
 
 st.set_page_config(
