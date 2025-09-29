@@ -36,7 +36,7 @@ st.markdown(
     - INSEE :
         - Projections démographiques OMPHALE : (Outil méthodologique de projection d'habitants, d'actifs, de logements et d'élèves) 
         - Recensement de la population (RP) : Indice de vieillissement
-        - Dispositif sur les revenus localisés sociaux et Fiscaux (FILOSOFI)
+        - Dispositif sur les revenus localisés sociaux et fiscaux (FILOSOFI)
         - Traitement caisse des dépôts:
             - Population des 60-74 ans et plus isolés
             - Population des 75 ans et plus en appartement avec ou sans ascenseur
