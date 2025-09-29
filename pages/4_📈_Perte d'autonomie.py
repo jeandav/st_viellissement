@@ -86,7 +86,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA à domicile pour 1&nbsp;000 habitants",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========
@@ -158,7 +159,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de l'APA en établissement pour 1&nbsp;000 habitants",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 # ========== Moyenne France ==========
 fig.add_vline(
@@ -233,7 +235,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires de la PCH pour 1&nbsp;000 habitants",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========

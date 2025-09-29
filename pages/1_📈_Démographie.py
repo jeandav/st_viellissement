@@ -290,7 +290,7 @@ fig = px.bar(
     text="ind_vie",
 )
 fig.update_layout(yaxis_title="cour d'appel", xaxis_title="Indice de vieillissement",
-    margin_pad=constants.margin_pad)
+    margin_pad=constants.margin_pad, yaxis=dict(autorange="reversed"))
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Indice de vieillissement: %{x}") #
 
@@ -322,4 +322,3 @@ st.markdown(
     ":grey[Source : _Insee, Recensement de la population (RP) - exploitation PEP/DSJ_]"
 )
 st.info("L’indice de vieillissement est le rapport de la population des 65 ans et plus sur celle des moins de 20 ans. Plus l’indice est faible, plus le rapport est favorable aux jeunes ; plus il est élevé, plus il est favorable aux personnes âgées.", icon='📌')
-

@@ -93,7 +93,8 @@ fig = px.bar(
 )
 fig.update_layout(
     yaxis_title="cour d'appel", xaxis_title="Revenu médian disponible (€)",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========
@@ -167,7 +168,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Nombre de bénéficiaires du minimum vieillesse pour 1&nbsp;000 habitants",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========
@@ -243,7 +245,8 @@ fig = px.bar(
 fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Intensité de la pauvreté des personnes agées",
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========
@@ -312,8 +315,11 @@ fig = px.bar(
     height=jd_graph_height,
     text="interdecile",
 )
-fig.update_layout(yaxis_title="cour d'appel", xaxis_title="Interdécile",
-    margin_pad=constants.margin_pad)
+fig.update_layout(yaxis_title="cour d'appel",
+    xaxis_title="Interdécile",
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
+    )
 
 # ========== Moyenne France ==========
 fig.add_vline(

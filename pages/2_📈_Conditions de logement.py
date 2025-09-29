@@ -101,7 +101,8 @@ fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Nombre de 60 ans et plus isolés pour 100 habitants",
     # hovermode=False,
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Nombre de 60 ans et plus<br>isolés pour 100 habitants: %{x}") #
@@ -184,7 +185,8 @@ fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement sans ascenseur pour 100 habitants",
     # hovermode=False,
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Population des 60 ans et plus<br>dans un appartement sans ascenseur<br>pour 100 habitants: %{x}") #
@@ -263,7 +265,8 @@ fig.update_layout(
     yaxis_title="cour d'appel",
     xaxis_title="Population des 60 ans et plus dans un appartement avec ascenseur pour 100 habitants",
     # hovermode=False,
-    margin_pad=constants.margin_pad
+    margin_pad=constants.margin_pad,
+    yaxis=dict(autorange="reversed")
 )
 
 # ========== Moyenne France ==========
