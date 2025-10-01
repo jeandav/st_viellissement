@@ -37,7 +37,6 @@ liste_ca = get_cluster_data()["ressort_ca"].unique()
 if "selected_ca" not in st.session_state:
     st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
 else:
-    # Remove any values not in the current liste_ca
     st.session_state["selected_ca"] = [ca for ca in st.session_state["selected_ca"] if ca in liste_ca]
 
 with st.sidebar:
