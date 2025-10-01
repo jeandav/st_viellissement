@@ -32,26 +32,31 @@ df_persagees = get_persagees_data()
 
 # -----------------------------------------------------------------------------
 
-liste_ca = df_cluster["ressort_ca"].unique()
+liste_ca = get_cluster_data()["ressort_ca"].unique()
+
+if "selected_ca" not in st.session_state:
+    st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
+else:
+    # Remove any values not in the current liste_ca
+    st.session_state["selected_ca"] = [ca for ca in st.session_state["selected_ca"] if ca in liste_ca]
 
 with st.sidebar:
-    if 'selected_ca' not in st.session_state:
-        st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
-
     selected_ca = st.multiselect(
-        "Choix de la cour d'appel :", 
-        liste_ca, 
-        default=st.session_state.selected_ca
+        "Choix de la cour d'appel :",
+        liste_ca,
+        default=st.session_state.selected_ca,
+        key="selected_ca"
     )
 
-    st.session_state.selected_ca = selected_ca
-
-    # st.write(st.session_state.selected_ca)
     st.markdown("---")
     st.write(constants.pep_signature, unsafe_allow_html=True)
 
+# Use selected_ca everywhere below, not st.session_state.selected_ca
+
 jd_graph_height = select_graph_height(len(selected_ca))
 filtered_df_cluster = df_cluster[df_cluster["ressort_ca"].isin(selected_ca)]
+
+# ...existing code...
 
 # -----------------------------------------------------------------------------
 
