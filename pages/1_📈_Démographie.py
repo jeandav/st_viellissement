@@ -32,7 +32,7 @@ df_persagees = get_persagees_data()
 
 # -----------------------------------------------------------------------------
 
-liste_ca = get_cluster_data()["ressort_ca"].unique()
+liste_ca = sorted(get_cluster_data()["ressort_ca"].unique())
 
 if "selected_ca" not in st.session_state:
     st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
@@ -301,8 +301,13 @@ fig.add_vline(
     annotation_text=constants.line_france_text,
     annotation_position=constants.line_france_annotation_position,
 )
-fig.update_traces(hovertemplate=None)
-fig.update_layout(hovermode=False)
+
+fig.update_traces(
+    hovertemplate=
+        "<b>Cour d’appel :</b> %{y}<br>" +
+        "<b>Indice de vieillissement :</b> %{x}<br>"
+)
+# fig.update_layout(hovermode=False)
 
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 

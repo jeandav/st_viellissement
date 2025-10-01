@@ -32,7 +32,7 @@ df_rev_disp = get_rev_disp_data()
 
 # -----------------------------------------------------------------------------
 
-liste_ca = get_cluster_data()["ressort_ca"].unique()
+liste_ca = sorted(get_cluster_data()["ressort_ca"].unique())
 
 if "selected_ca" not in st.session_state:
     st.session_state.selected_ca = ['VERSAILLES', 'PARIS']
@@ -118,10 +118,10 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Revenu médian disponible: %{x}€") #
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br><b>Revenu médian disponible:</b> %{x}€") #
 
-fig.update_traces(hovertemplate=None)
-fig.update_layout(hovermode=False)
+# fig.update_traces(hovertemplate=None)
+# fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -194,10 +194,10 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>%{x} bénéficiaires du minimum<br>vieillesse pour 1 000 habitants") #
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>%{x} bénéficiaires du minimum<br>vieillesse pour 1 000 habitants")
 
-fig.update_traces(hovertemplate=None)
-fig.update_layout(hovermode=False)
+# fig.update_traces(hovertemplate=None)
+# fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -270,10 +270,10 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Intensité de la pauvreté des personnes agées: %{x}") #
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Intensité de la pauvreté des personnes agées: %{x:.2f}")
 
-fig.update_traces(hovertemplate=None)
-fig.update_layout(hovermode=False)
+# fig.update_traces(hovertemplate=None)
+# fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
@@ -342,10 +342,14 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Interdécile: %{x}") #
-
-fig.update_traces(hovertemplate=None)
-fig.update_layout(hovermode=False)
+fig.update_traces(
+    hovertemplate=
+        "<b>Cour d’appel :</b> %{y}<br>" +
+        "<b>Interdécile :</b> %{x}<br>"
+)
+# fig.update_layout(hovermode=False)
+# fig.update_traces(hovertemplate=None)
+# fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 # ========== Note de lecture ==========
