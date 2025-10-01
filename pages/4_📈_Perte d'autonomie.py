@@ -260,8 +260,7 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>%{x} bénéficiaires de la PCH pour 1&nbsp;000 habitants") #
-
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>%{x} bénéficiaires de la PCH pour 1&nbsp;000 habitants") 
 # fig.update_traces(hovertemplate=None)
 # fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})

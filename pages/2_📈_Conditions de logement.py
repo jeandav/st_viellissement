@@ -101,8 +101,7 @@ fig.update_layout(
     yaxis=dict(autorange="reversed")
 )
 
-fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Nombre de 60 ans et plus isolés pour 100 habitants: %{x:.2f}") #
-
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Nombre de 60 ans et plus isolés pour 100 habitants: %{x:.2f}") 
 
 # ========== Moyenne France ==========
 fig.add_vline(
@@ -185,8 +184,7 @@ fig.update_layout(
     yaxis=dict(autorange="reversed")
 )
 
-fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Population des 60 ans et plus<br>dans un appartement sans ascenseur<br>pour 100 habitants: %{x}") #
-
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Population des 60 ans et plus<br>dans un appartement sans ascenseur<br>pour 100 habitants: %{x}") 
 # ========== Moyenne France ==========
 fig.add_vline(
     x=df_menage[
@@ -289,8 +287,7 @@ fig.add_vline(
 #         annotation_font_color=constants.line_cour_color,
 #     )
 
-fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Population des 60 ans et plus<br>dans un appartement avec ascenseur<br>pour 100 habitants: %{x}") #
-
+fig.update_traces(hovertemplate="<b>Cour d’appel:</b> %{y}<br>Population des 60 ans et plus<br>dans un appartement avec ascenseur<br>pour 100 habitants: %{x}") 
 # fig.update_traces(hovertemplate=None)
 # fig.update_layout(hovermode=False)
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})

@@ -291,8 +291,7 @@ fig = px.bar(
 fig.update_layout(yaxis_title="cour d'appel", xaxis_title="Indice de vieillissement",
     margin_pad=constants.margin_pad, yaxis=dict(autorange="reversed"))
 
-fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Indice de vieillissement: %{x}") #
-
+fig.update_traces(hovertemplate="Cour d’appel: %{y}<br>Indice de vieillissement: %{x}") 
 # ========== Moyenne France ==========
 fig.add_vline(
     x=86,
